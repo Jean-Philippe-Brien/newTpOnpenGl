@@ -6,6 +6,7 @@
 #define MONPROJETSDL_GAMEMANAGER_H
 #include "../Utils/Include.h"
 #include "../Player.h"
+#include "../Classes/Camera.h"
 
 
 class GameManager {
@@ -17,6 +18,7 @@ private:
     SDL_GLContext context;
     int width = 800, height = 600;
     Player *player;
+    Camera *camera;
 
 public:
 

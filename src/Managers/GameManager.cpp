@@ -19,7 +19,7 @@ void GameManager::init() {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     player = new Player(glm::vec3(0,0,0));
-
+    camera = new Camera(player);
 }
 void GameManager::loop() {
 
@@ -27,11 +27,16 @@ void GameManager::loop() {
         clean();
         glLoadIdentity();
         
-        gluLookAt(6, 6, 4, 0, 0, 0, 0, 1, 0);
-        
+if(!camera){
+    gluLookAt(6, 6, 4, 0, 0, 0, 0, 1, 0);
+    
+}   else{camera->moveCam(player,1);}
         
         
         handleEvent();
+        glColor3ub(255,0,0);
+        drawPlane(20);
+        glColor3ub(0,0,0);
         player->drawEntity();
         SDL_Delay(1);
 
@@ -49,9 +54,12 @@ void GameManager::draw() {
 }
 void GameManager::handleEvent() {
     SDL_PollEvent(&event);
-    state = SDL_GetKeyboardState(0);
+    state = SDL_GetKeyboardState(nullptr);
     if (event.type == SDL_QUIT) {
         isRunning = false;
+    }
+    if(state[SDL_SCANCODE_ESCAPE]){
+        isRunning=false;
     }
     if(state[SDL_SCANCODE_W])
     {
@@ -63,11 +71,11 @@ void GameManager::handleEvent() {
     }
     if(state[SDL_SCANCODE_A])
     {
-        player->setRotation(player->getRotation() + 0.3);
+        player->setRotation(player->getRotation() + 1);
     }
     if(state[SDL_SCANCODE_D])
     {
-        player->setRotation(player->getRotation() - 0.3);
+        player->setRotation(player->getRotation() - 1);
     }
     if(state[SDL_SCANCODE_Q])
     {

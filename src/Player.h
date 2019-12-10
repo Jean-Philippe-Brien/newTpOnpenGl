@@ -18,7 +18,7 @@
 #include <string>
 #include "Classes/Projectile.h"
 
-class Player: Entity {
+class Player: public Entity {
 private:
     std::vector<Projectile*> projectile;
     GLuint idBaseThank = 0;

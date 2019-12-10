@@ -6,16 +6,23 @@
 #define RUSTBUCKETS_CAMERA_H
 
 #include "../Utils/Include.h"
+#include "../Player.h"
+
 class Camera {
 
 public:
     
     glm::vec3 camPos;
-    glm::vec3 camAngle;
+    float camAngle;
+    float rotAngle;
+    float distance;
     float lastX,lastY;
     
     
-
+    Camera(Player* player);
+    
+    
+    void moveCam(Player* player,int viewTyconst);
 };
 
 

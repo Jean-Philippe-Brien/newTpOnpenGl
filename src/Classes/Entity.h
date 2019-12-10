@@ -22,6 +22,7 @@ protected:
     float rotation = 0;
     float canonRotation = 0;
     float fireRate = 0;
+    
 public:
     
     Entity(const glm::vec3 &position);
