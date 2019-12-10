@@ -30,15 +30,18 @@ void Player::movement(bool forward) {
 
 void Player::drawEntity() {
     glPushMatrix();
-
+        
         glTranslatef(position.x, position.y, position.z);
+        
         glRotatef(rotation, 0, 1, 0);
         drawAxe();
         glRotatef(90,0,1,0);
+    glScalef(0.2f,0.2f,0.2f);
         glCallList(idBaseThank);
         glRotatef( canonRotation,0,1,0);
         glCallList(idBaseCanon);
     glPopMatrix();
+    glScalef(0.2f,0.2f,0.2f);
     for(Projectile *p : projectile){
         p->draw();
     }
@@ -73,3 +76,4 @@ float Player::getCanonRotation() const {
 void Player::setCanonRotation(float canonRotation) {
     Entity::setCanonRotation(canonRotation);
 }
+

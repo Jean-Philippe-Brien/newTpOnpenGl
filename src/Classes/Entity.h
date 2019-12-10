@@ -17,15 +17,14 @@ protected:
     double hp;
     glm::vec3 position; //(xf,yf,zf)
     glm::vec3 direction;
-    
     float canonSpeed = 0;
     float rotation = 0;
     float canonRotation = 0;
     float fireRate = 0;
-    
+
 public:
     
-    Entity(const glm::vec3 &position);
+    explicit Entity(const glm::vec3 &position);
     
     //Geter/Setter
     float getIsAlive() const;
@@ -37,10 +36,6 @@ public:
     void setSpeed(float speed);
     
     virtual const glm::vec3 &getPos() const;
-    
-    int getType() const;
-    
-    void setType(int type);
     
     float getCanonSpeed() const;
     
@@ -62,10 +57,19 @@ public:
     
     void setHp(double hp);
     
+    const glm::vec3 &getPosition() const;
     
+    void setPosition(const glm::vec3 &position);
+    
+    const glm::vec3 &getDirection() const;
+    
+    void setDirection(const glm::vec3 &direction);
+    
+
     virtual void movement();
     
     virtual void drawEntity();
+    
     //called everytime an entity shoots
     void shoot(int type);
     

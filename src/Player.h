@@ -24,7 +24,8 @@ private:
     GLuint idBaseThank = 0;
     GLuint idBaseCanon = 0;
 public:
-    Player(const glm::vec3 pos);
+  
+    explicit Player(glm::vec3 pos);
     void movement(bool forward);
     void setPos(const glm::vec3 &pos) override;
     const glm::vec3 &getPos() const override;

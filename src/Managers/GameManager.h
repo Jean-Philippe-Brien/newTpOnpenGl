@@ -14,11 +14,16 @@ private:
     const Uint8* state = nullptr;
     SDL_Event event;
     bool isRunning = true;
+    bool viewChanged = false;
     SDL_Window *win;
     SDL_GLContext context;
     int width = 800, height = 600;
+    int mouseX=0,mouseY=0;
+    float planeSize=1;
+    std::vector<char> *mapList;
     Player *player;
-    Camera *camera;
+    Camera *followCam;
+    Camera *fpsCam;
 
 public:
 

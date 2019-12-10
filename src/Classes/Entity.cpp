@@ -84,3 +84,19 @@ void Entity::setHp(double hp) {
 }
 
 Entity::Entity(const glm::vec3 &position) : position(position) {}
+
+const glm::vec3 &Entity::getPosition() const {
+    return position;
+}
+
+void Entity::setPosition(const glm::vec3 &position) {
+    Entity::position = position;
+}
+
+const glm::vec3 &Entity::getDirection() const {
+    return direction;
+}
+
+void Entity::setDirection(const glm::vec3 &direction) {
+    Entity::direction = direction;
+}
