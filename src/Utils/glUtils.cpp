@@ -270,23 +270,6 @@ void drawMap(float planeSize, std::vector<char> mapData) {
     glPopMatrix();
 }   //   mapData   -> Obtained same way as planeSize.
 
-//This is **NOT**  a USABLE function. This code is to be implemented in the programs main to load the mapData properly and easily.
-void codeToLoadFile(){
-    float planeSize=1;
-    std::vector<char> *mapList = new std::vector<char>();
-    std::ifstream file("assets/cityMap.txt"); //change file name here to test,   ** Need to implement event based file selection **
-    if (file) {
-        char c;
-        while (file.get(c)) {
-            if(!isspace(c)){//Check if this char is a '/n'
-                mapList->push_back(c);
-            }else{planeSize++;}//If so increment Plane size
-        }
-    } else {        //Error if no file is loaded
-        std::cout << "no file loaded" << std::endl;
-    }
-    mapList->shrink_to_fit();
-}
 int loadOBJ(std::string path) {
     std::vector< unsigned int > vertexIndices, uvIndices, normalIndices;
     std::vector< glm::vec3 > temp_vertices;
@@ -301,7 +284,7 @@ int loadOBJ(std::string path) {
         return false;
     }
     while( 1 ) {
-
+        
         char lineHeader[128];
         // read the first word of the line
         int res = fscanf(file, "%s", lineHeader);
@@ -366,4 +349,26 @@ int loadOBJ(std::string path) {
     glEnd();
     glEndList();
     return id;
+}
+
+
+
+
+
+//This is **NOT**  a USABLE function. This code is to be implemented in the programs main to load the mapData properly and easily.
+void codeToLoadFile(){
+    float planeSize=1;
+    std::vector<char> *mapList = new std::vector<char>();
+    std::ifstream file("assets/cityMap.txt"); //change file name here to test,   ** Need to implement event based file selection **
+    if (file) {
+        char c;
+        while (file.get(c)) {
+            if(!isspace(c)){//Check if this char is a '/n'
+                mapList->push_back(c);
+            }else{planeSize++;}//If so increment Plane size
+        }
+    } else {        //Error if no file is loaded
+        std::cout << "no file loaded" << std::endl;
+    }
+    mapList->shrink_to_fit();
 }
