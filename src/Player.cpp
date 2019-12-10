@@ -152,3 +152,19 @@ void Player::createProjectile() {
     projectile.push_back(new Projectile(rotation + canonRotation, position));
 }
 
+float Player::getFireRate1() const {
+    return fireRate;
+}
+
+void Player::setFireRate1(float fireRate) {
+    Player::fireRate = fireRate;
+}
+
+float Player::getLastFire() const {
+    return lastFire;
+}
+
+void Player::setLastFire(float lastFire) {
+    Player::lastFire = lastFire;
+}
+

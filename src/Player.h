@@ -21,6 +21,8 @@
 class Player: Entity {
 private:
     std::vector<Projectile*> projectile;
+    float fireRate = 1;
+    float lastFire = 0;
     GLuint idBaseThank = 0;
     GLuint idBaseCanon = 0;
 public:
@@ -35,6 +37,14 @@ public:
     void setCanonRotation(float canonRotation) override;
     void createProjectile();
     ~Player();
+
+    float getFireRate1() const;
+
+    void setFireRate1(float fireRate);
+
+    float getLastFire() const;
+
+    void setLastFire(float lastFire);
 
 };
 

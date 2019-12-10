@@ -13,6 +13,7 @@ private:
 
     float speed = 0.1;
     float anglePlayerCanon = 0;
+
     glm::vec3 position;
 
 public:
