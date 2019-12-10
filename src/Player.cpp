@@ -106,7 +106,6 @@ void Player::movement(bool forward) {
 
 void Player::drawEntity() {
     glPushMatrix();
-
         glTranslatef(position.x, position.y, position.z);
         glRotatef(rotation, 0, 1, 0);
         drawAxe();
@@ -117,7 +116,23 @@ void Player::drawEntity() {
     glPopMatrix();
     for(Projectile *p : projectile){
         p->draw();
+        p->isProjectileAlive();
     }
+    checkBulletAlive();
+}
+
+void Player::checkBulletAlive() {
+    std::vector<int> temp;
+
+    for(int i = 0; i < projectile.size(); i++){
+        if(projectile[i]->getIsAlive()){
+            temp.push_back(i);
+        }
+    }
+    for(int i = 0; i < temp.size(); i++){
+        projectile.erase(projectile.begin() + temp[i]);
+    }
+
 }
 
 const glm::vec3 &Player::getPos() const {

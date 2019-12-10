@@ -21,11 +21,12 @@
 class Player: Entity {
 private:
     std::vector<Projectile*> projectile;
-    float fireRate = 1000;
+    float fireRate = 200;
     float lastFire = 0;
     GLuint idBaseThank = 0;
     GLuint idBaseCanon = 0;
 public:
+    void checkBulletAlive();
     Player(const glm::vec3 pos);
     void movement(bool forward);
     void setPos(const glm::vec3 &pos) override;

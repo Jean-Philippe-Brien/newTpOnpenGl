@@ -361,6 +361,7 @@ int loadOBJ(std::string path) {
     glColor3f(0,0,0);
     for( unsigned int i=0; i < out_vertices.size(); i++ ) {
         glVertex3f(out_vertices[i].x, out_vertices[i].y, out_vertices[i].z);
+        glNormal3f(out_normals[i].x,out_normals[i].y,out_normals[i].z );
     }
     glEnd();
     glEndList();

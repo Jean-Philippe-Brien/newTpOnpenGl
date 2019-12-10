@@ -13,6 +13,10 @@ void GameManager::init() {
                            SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
     context = SDL_GL_CreateContext(win);
    // glEnable(GL_DEPTH_TEST);
+   glLightModeli(GL_LIGHT_MODEL_AMBIENT, GL_TRUE);
+   glEnable(GL_LIGHTING);
+   glEnable(GL_LIGHT0);
+    glEnable(GL_DEPTH_TEST);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluPerspective(70, (double) 800 / 600, 1, 1000);
@@ -41,7 +45,7 @@ void GameManager::loop() {
 }
 void GameManager::clean() {
     glClearColor(1.f, 1.f, 1.f, 1.f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 void GameManager::draw() {
     glFlush();

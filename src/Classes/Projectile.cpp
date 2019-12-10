@@ -3,11 +3,14 @@
 //
 
 #include "Projectile.h"
-GLuint Projectile::idProjectile = loadOBJ("../assets/TankBullet.obj");
+GLuint Projectile::idProjectile = 0;
 Projectile::Projectile(float anglePlayerCanon, glm::vec3 positionPlayer): anglePlayerCanon(anglePlayerCanon), position(positionPlayer) {
     speed = 0.1;
+    timeInstance = SDL_GetTicks();
 }
-
+void Projectile::isProjectileAlive(){
+    isAlive = timeInstance + timeAlive < SDL_GetTicks();
+}
 void Projectile::draw() {
     glPushMatrix();
 
@@ -17,10 +20,15 @@ void Projectile::draw() {
         drawAxe();
         glScaled(0.2,0.2,0.2);
         drawCube();
+        //glCallList(idProjectile);
     glPopMatrix();
     movement();
 }
 void Projectile::movement() {
     position.x += speed * cos(anglePlayerCanon * (M_PI / 180));
     position.z -= speed * sin(anglePlayerCanon * (M_PI / 180));
+}
+
+bool Projectile::getIsAlive() const {
+    return isAlive;
 }
