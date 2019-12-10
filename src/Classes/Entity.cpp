@@ -67,13 +67,7 @@ void Entity::setCanonRotation(float canonRotation) {
     Entity::canonRotation = canonRotation;
 }
 
-float Entity::getFireRate() const {
-    return fireRate;
-}
 
-void Entity::setFireRate(float fireRate) {
-    Entity::fireRate = fireRate;
-}
 
 double Entity::getHp() const {
     return hp;
