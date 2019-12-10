@@ -12,7 +12,7 @@ Player::Player(const glm::vec3 pos) : Entity(pos) {
 
 }
 
-int Player::loadOBJ(std::string path) {
+/*int Player::loadOBJ(std::string path) {
     std::vector< unsigned int > vertexIndices, uvIndices, normalIndices;
     std::vector< glm::vec3 > temp_vertices;
     std::vector< glm::vec2 > temp_uvs;
@@ -90,7 +90,7 @@ int Player::loadOBJ(std::string path) {
     out_uvs.clear();
     out_vertices.clear();
     return id;
-}
+}*/
 
 void Player::movement(bool forward) {
     speed = 0.01;
@@ -115,6 +115,9 @@ void Player::drawEntity() {
         glRotatef( canonRotation,0,1,0);
         glCallList(idBaseCanon);
     glPopMatrix();
+    for(Projectile *p : projectile){
+        p->draw();
+    }
 }
 
 const glm::vec3 &Player::getPos() const {
@@ -143,5 +146,9 @@ float Player::getCanonRotation() const {
 
 void Player::setCanonRotation(float canonRotation) {
     Entity::setCanonRotation(canonRotation);
+}
+
+void Player::createProjectile() {
+    projectile.push_back(new Projectile(rotation + canonRotation, position));
 }
 

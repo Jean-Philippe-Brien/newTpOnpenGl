@@ -16,15 +16,13 @@
 #include <iostream>
 #include "Utils/glUtils.h"
 #include <string>
+#include "Classes/Projectile.h"
 
 class Player: Entity {
 private:
+    std::vector<Projectile*> projectile;
     GLuint idBaseThank = 0;
     GLuint idBaseCanon = 0;
-    std::vector< glm::vec3 > out_vertices;
-    std::vector< glm::vec2 > out_uvs;
-    std::vector< glm::vec3 > out_normals;
-    int loadOBJ(std::string path);
 public:
     Player(const glm::vec3 pos);
     void movement(bool forward);
@@ -35,6 +33,7 @@ public:
     void drawEntity() override;
     float getCanonRotation() const override;
     void setCanonRotation(float canonRotation) override;
+    void createProjectile();
     ~Player();
 
 };

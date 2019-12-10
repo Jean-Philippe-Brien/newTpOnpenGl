@@ -77,6 +77,10 @@ void GameManager::handleEvent() {
     {
         player->setCanonRotation(player->getCanonRotation() - 0.3);
     }
+    if(state[SDL_SCANCODE_SPACE])
+    {
+        player->createProjectile();
+    }
     
 }
 GameManager::~GameManager() {
