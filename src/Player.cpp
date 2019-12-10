@@ -149,7 +149,11 @@ void Player::setCanonRotation(float canonRotation) {
 }
 
 void Player::createProjectile() {
-    projectile.push_back(new Projectile(rotation + canonRotation, position));
+    float p = SDL_GetTicks();
+    if(this->lastFire + fireRate < p ) {
+        lastFire = SDL_GetTicks();
+        projectile.push_back(new Projectile(rotation + canonRotation, position));
+    }
 }
 
 float Player::getFireRate1() const {

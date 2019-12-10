@@ -21,7 +21,7 @@
 class Player: Entity {
 private:
     std::vector<Projectile*> projectile;
-    float fireRate = 1;
+    float fireRate = 1000;
     float lastFire = 0;
     GLuint idBaseThank = 0;
     GLuint idBaseCanon = 0;
