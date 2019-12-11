@@ -43,24 +43,6 @@ void Player::drawEntity() {
         glRotatef( canonRotation,0,1,0);
         glCallList(idBaseCanon);
     glPopMatrix();
-    for(Projectile *p : projectile){
-        p->draw();
-        p->isProjectileAlive();
-    }
-    checkBulletAlive();
-}
-
-void Player::checkBulletAlive() {
-    std::vector<int> temp;
-
-    for(int i = 0; i < projectile.size(); i++){
-        if(projectile[i]->getIsAlive()){
-            temp.push_back(i);
-        }
-    }
-    for(int i = 0; i < temp.size(); i++){
-        projectile.erase(projectile.begin() + temp[i]);
-    }
 
 }
 
@@ -89,20 +71,9 @@ void Player::setCanonRotation(float canonRotation) {
     Entity::setCanonRotation(canonRotation);
 }
 
-void Player::createProjectile() {
-    float p = SDL_GetTicks();
-    if(this->lastFire + fireRate < p ) {
-        lastFire = SDL_GetTicks();
-        projectile.push_back(new Projectile(rotation + canonRotation, position));
-    }
-}
 
 float Player::getFireRate1() const {
     return fireRate;
-}
-
-void Player::setFireRate1(float fireRate) {
-    Player::fireRate = fireRate;
 }
 
 float Player::getLastFire() const {

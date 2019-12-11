@@ -26,8 +26,7 @@ private:
     GLuint idBaseThank = 0;
     GLuint idBaseCanon = 0;
 public:
-    void checkBulletAlive();
-    Player(const glm::vec3 pos);
+    explicit Player(const glm::vec3 pos);
     void movement(bool forward);
     void setPos(const glm::vec3 &pos) override;
     const glm::vec3 &getPos() const override;
@@ -36,12 +35,9 @@ public:
     void drawEntity() override;
     float getCanonRotation() const override;
     void setCanonRotation(float canonRotation) override;
-    void createProjectile();
     ~Player();
 
     float getFireRate1() const;
-
-    void setFireRate1(float fireRate);
 
     float getLastFire() const;
 

@@ -16,7 +16,6 @@ protected:
     float speed = 0;
     double hp;
     glm::vec3 position; //(xf,yf,zf)
-    glm::vec3 direction;
     float canonSpeed = 0;
     float rotation = 0;
     float canonRotation = 0;
@@ -55,11 +54,6 @@ public:
     const glm::vec3 &getPosition() const;
     
     void setPosition(const glm::vec3 &position);
-    
-    const glm::vec3 &getDirection() const;
-    
-    void setDirection(const glm::vec3 &direction);
-    
 
     virtual void movement();
     
