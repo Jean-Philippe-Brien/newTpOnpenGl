@@ -21,11 +21,12 @@
 class Player: public Entity {
 private:
     std::vector<Projectile*> projectile;
+    float fireRate = 200;
+    float lastFire = 0;
     GLuint idBaseThank = 0;
     GLuint idBaseCanon = 0;
 public:
-  
-    explicit Player(glm::vec3 pos);
+    explicit Player(const glm::vec3 pos);
     void movement(bool forward);
     void setPos(const glm::vec3 &pos) override;
     const glm::vec3 &getPos() const override;
@@ -34,8 +35,13 @@ public:
     void drawEntity() override;
     float getCanonRotation() const override;
     void setCanonRotation(float canonRotation) override;
-    void createProjectile();
     ~Player();
+
+    float getFireRate1() const;
+
+    float getLastFire() const;
+
+    void setLastFire(float lastFire);
 
 };
 

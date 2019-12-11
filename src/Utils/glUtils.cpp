@@ -11,41 +11,61 @@
 
 //Draws a simple 1x1 Cube with its origin in the center.
 void drawCube() {
-    glBegin(GL_QUADS);
-    glVertex3f(1, -1, 1);
-    glVertex3f(-1, -1, 1);
-    glVertex3f(1, -1, -1);
-    glVertex3f(-1, -1, -1);
-    glEnd();
-    glBegin(GL_QUADS);
-    glVertex3f(1, 1, 1);
-    glVertex3f(-1, 1, 1);
-    glVertex3f(-1, 1, -1);
-    glVertex3f(1, 1, -1);
-    glEnd();
-    glBegin(GL_QUADS);
-    glVertex3f(+1, -1, 1);
-    glVertex3f(1, 1, 1);
-    glVertex3f(1, 1, -1);
-    glVertex3f(1, -1, -1);
-    glEnd();
-    glBegin(GL_QUADS);
-    glVertex3f(1, -1, -1);
-    glVertex3f(-1, -1, -1);
-    glVertex3f(-1, 1, -1);
-    glVertex3f(1, 1, -1);
-    glEnd();
-    glBegin(GL_QUADS);
-    glVertex3f(1, -1, 1);
-    glVertex3f(-1, -1, 1);
-    glVertex3f(-1, 1, 1);
-    glVertex3f(1, 1, 1);
-    glEnd();
-    glBegin(GL_QUADS);
-    glVertex3f(-1, -1, 1);
-    glVertex3f(-1, 1, 1);
-    glVertex3f(-1, 1, -1);
-    glVertex3f(-1, -1, -1);
+    //glColor3f(0.5,0.5,0.5);
+    glBegin(GL_TRIANGLES);
+    /*      This is the bottom face*/
+    glNormal3f(0.0f, -1.0f, 0.0f);
+    glVertex3f(1.0f, -1.0f, -1.0f);
+    glVertex3f(1.0f, -1.0f, 1.0f);
+    glVertex3f(-1.0f, -1.0f, 1.0f);
+    glVertex3f(1.0f, -1.0f, -1.0f);
+    glVertex3f(-1.0f, -1.0f, 1.0f);
+    glVertex3f(-1.0f, -1.0f, -1.0f);
+
+    //top face
+    glNormal3f(0.0f, 1.0f, 0.0f);
+    glVertex3f(1.0f, 1.0f, -1.0f);
+    glVertex3f(-1.0f, 1.0f, -1.0f);
+    glVertex3f(-1.0f, 1.0f, 1.0f);
+    glVertex3f(1.0f, 1.0f, -1.0f);
+    glVertex3f(-1.0f, 1.0f, 1.0f);
+    glVertex3f(1.0f, 1.0f, 1.0f);
+
+    //right face
+    glNormal3f(1.0f, 0.0f, 0.0f);
+    glVertex3f(1.0f, -1.0f, -1.0f);
+    glVertex3f(1.0f, 1.0f, -1.0f);
+    glVertex3f(1.0f, 1.0f, 1.0f);
+    glVertex3f(1.0f, -1.0f, -1.0f);
+    glVertex3f(1.0f, 1.0f, 1.0f);
+    glVertex3f(1.0f, -1.0f, 1.0f);
+
+    //front face
+    glNormal3f(0.0f, 0.0f, 1.0f);
+    glVertex3f(1.0f, -1.0f, 1.0f);
+    glVertex3f(1.0f, 1.0f, 1.0f);
+    glVertex3f(-1.0f, 1.0f, 1.0f);
+    glVertex3f(1.0f, -1.0f, 1.0f);
+    glVertex3f(-1.0f, 1.0f, 1.0f);
+    glVertex3f(-1.0f, -1.0f, 1.0f);
+
+    //left face
+    glNormal3f(-1.0f, 0.0f, 0.0f);
+    glVertex3f(-1.0f, -1.0f, 1.0f);
+    glVertex3f(-1.0f, 1.0f, 1.0f);
+    glVertex3f(-1.0f, 1.0f, -1.0f);
+    glVertex3f(-1.0f, -1.0f, 1.0f);
+    glVertex3f(-1.0f, 1.0f, -1.0f);
+    glVertex3f(-1.0f, -1.0f, -1.0f);
+
+    //back face
+    glNormal3f(0.0f, 0.0f, -1.0f);
+    glVertex3f(1.0f, 1.0f, -1.0f);
+    glVertex3f(1.0f, -1.0f, -1.0f);
+    glVertex3f(-1.0f, -1.0f, -1.0f);
+    glVertex3f(1.0f, 1.0f, -1.0f);
+    glVertex3f(-1.0f, -1.0f, -1.0f);
+    glVertex3f(-1.0f, 1.0f, -1.0f);
     glEnd();
     
 }
@@ -121,13 +141,14 @@ void drawCircle(float k, float r, float h) {
 //Draws a flat, square plane.  Used in ``drawMap()``
 void drawPlane(float size) {
     glBegin(GL_QUADS);
+    glNormal3f(0,1,0);
     glColor3ub(0, 100, 50);
     glVertex3f(0, 0, 0);
-    glColor3ub(0, 100, 50);
+    //glColor3ub(0, 100, 50);
     glVertex3f(0, 0, size);
-    glColor3ub(0, 100, 50);
+    //glColor3ub(0, 100, 50);
     glVertex3f(size, 0, size);
-    glColor3ub(0, 100, 50);
+    //glColor3ub(0, 100, 50);
     glVertex3f(size, 0, 0);
     glEnd();
 }
@@ -182,7 +203,7 @@ void drawAxe() {
     glColor3f(0, 0, 1);
     glVertex3f(0, 0, 0);
     glVertex3f(0, 0, 1);
-    
+
     glEnd();
     glPopMatrix();
 }
@@ -341,9 +362,10 @@ int loadOBJ(std::string path) {
     GLuint id = glGenLists(1);
     glNewList(id, GL_COMPILE);
     glBegin(GL_TRIANGLES);
-    glColor3f(0,0,0);
+    glColor3f(1,1,1);
     for( unsigned int i=0; i < out_vertices.size(); i++ ) {
         glVertex3f(out_vertices[i].x, out_vertices[i].y, out_vertices[i].z);
+        glNormal3f(out_normals[i].x,out_normals[i].y,out_normals[i].z );
     }
     glEnd();
     glEndList();

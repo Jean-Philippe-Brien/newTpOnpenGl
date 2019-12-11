@@ -16,11 +16,9 @@ protected:
     float speed = 0;
     double hp;
     glm::vec3 position; //(xf,yf,zf)
-    glm::vec3 direction;
     float canonSpeed = 0;
     float rotation = 0;
     float canonRotation = 0;
-    float fireRate = 0;
 
 public:
     
@@ -49,10 +47,6 @@ public:
     
     virtual void setCanonRotation(float canonRotation);
     
-    float getFireRate() const;
-    
-    void setFireRate(float fireRate);
-    
     double getHp() const;
     
     void setHp(double hp);
@@ -60,11 +54,6 @@ public:
     const glm::vec3 &getPosition() const;
     
     void setPosition(const glm::vec3 &position);
-    
-    const glm::vec3 &getDirection() const;
-    
-    void setDirection(const glm::vec3 &direction);
-    
 
     virtual void movement();
     

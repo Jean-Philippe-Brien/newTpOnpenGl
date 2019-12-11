@@ -67,13 +67,7 @@ void Entity::setCanonRotation(float canonRotation) {
     Entity::canonRotation = canonRotation;
 }
 
-float Entity::getFireRate() const {
-    return fireRate;
-}
 
-void Entity::setFireRate(float fireRate) {
-    Entity::fireRate = fireRate;
-}
 
 double Entity::getHp() const {
     return hp;
@@ -93,10 +87,4 @@ void Entity::setPosition(const glm::vec3 &position) {
     Entity::position = position;
 }
 
-const glm::vec3 &Entity::getDirection() const {
-    return direction;
-}
 
-void Entity::setDirection(const glm::vec3 &direction) {
-    Entity::direction = direction;
-}
