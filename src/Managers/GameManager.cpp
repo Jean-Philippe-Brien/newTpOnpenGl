@@ -12,22 +12,25 @@ void GameManager::init() {
     win = SDL_CreateWindow("OpenGl Test", SDL_WINDOWPOS_CENTERED,
                            SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
     context = SDL_GL_CreateContext(win);
-   // glEnable(GL_DEPTH_TEST);
-   glLightModeli(GL_LIGHT_MODEL_AMBIENT, GL_TRUE);
-   glEnable(GL_LIGHTING);
-   glEnable(GL_LIGHT0);
-    glEnable(GL_DEPTH_TEST);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(70, (double) 800 / 600, 1, 1000);
+    glClearDepth(1);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+    glEnable(GL_COLOR_MATERIAL);
+    glColorMaterial (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+    //glEnable(GL_DEPTH_TEST);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(60, (double) 800 / 600, 1, 1000);
+    //glEnable(GL_DEPTH_TEST);
+
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     
-    
-    player = new Player(glm::vec3(0,0,0));
+    projectileManager = new ProjectileManager();
+
+    player = new Player(glm::vec3(5,0,5));
     followCam = new Camera(player, 1);
     fpsCam = new Camera(player,2);
     
@@ -52,18 +55,18 @@ void GameManager::loop() {
         clean();
         glLoadIdentity();
         SDL_GetMouseState(&mouseX,&mouseY);
-        
+
         if (!viewChanged) {//3rd Person Cam
             followCam->moveCam(player, 1);
             //FPS Cam below
         } else { //fpsCam->moveCam(player,2);
             gluLookAt(6, 6, 4, 0, 0, 0, 0, 1, 0);
         }
-        
+
         handleEvent();
         //std::cout << mouseX << " < X  ,  Y  > " << mouseY << std::endl;
         SDL_Delay(1);
-
+        projectileManager->update();
         draw();
         //mise a jour de l'ecran
     }
@@ -136,9 +139,9 @@ void GameManager::handleEvent() {
     if(state[SDL_SCANCODE_SPACE])
     {
         if(!viewChanged){
-            player->createProjectile();
+            projectileManager->createProjectile(player);
         }else {
-            player->createProjectile();
+            projectileManager->createProjectile(player);;
         }
     }
     if((state[SDL_SCANCODE_A]&&state[SDL_SCANCODE_W]) || (state[SDL_SCANCODE_S]&&state[SDL_SCANCODE_A])){

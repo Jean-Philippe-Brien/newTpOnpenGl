@@ -48,10 +48,6 @@ public:
     
     virtual void setCanonRotation(float canonRotation);
     
-    float getFireRate() const;
-    
-    void setFireRate(float fireRate);
-    
     double getHp() const;
     
     void setHp(double hp);

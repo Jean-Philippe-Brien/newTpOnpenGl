@@ -94,3 +94,5 @@ const glm::vec3 &Entity::getDirection() const {
 void Entity::setDirection(const glm::vec3 &direction) {
     Entity::direction = direction;
 }
+
+

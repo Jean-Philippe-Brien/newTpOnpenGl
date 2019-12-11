@@ -5,7 +5,7 @@
 #ifndef MONPROJETSDL_GAMEMANAGER_H
 #define MONPROJETSDL_GAMEMANAGER_H
 #include "../Utils/Include.h"
-#include "../Player.h"
+#include "../Managers/ProjectileManager.h"
 #include "../Classes/Camera.h"
 
 
@@ -24,6 +24,7 @@ private:
     Player *player;
     Camera *followCam;
     Camera *fpsCam;
+    ProjectileManager *projectileManager;
 
 public:
 
