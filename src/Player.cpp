@@ -3,6 +3,7 @@
 //
 
 #include "Player.h"
+#include "Classes/Entity.h"
 
 Player::Player(const glm::vec3 pos) : Entity(pos) {
     idBaseThank = loadOBJ("assets/thisThank.obj");
@@ -15,21 +16,15 @@ Player::~Player() {
     glDeleteLists(idBaseThank, 1);
 }
 
-void Player::movement(bool forward, CollisionManager *cm) {
-    speed = 0.05;
-    float tempX = 0;
-    float tempY = 0;
+void Player::movement(bool forward) {
+    speed = 0.1;
     if(forward) {
-        tempX = position.x + speed * cos(rotation * (M_PI / 180));
-        tempY = position.z - speed * sin(rotation * (M_PI / 180));
+        position.x += speed * cos(rotation * (M_PI / 180));
+        position.z -= speed * sin(rotation * (M_PI / 180));
     } else {
-
-        tempX = position.x - speed * cos(rotation * (M_PI / 180));
-        tempY = position.z + speed * sin(rotation * (M_PI / 180));
-    }
-    if(!cm->detectColosion(glm::vec3(tempX, 0, tempY),0.5)){
-        position.x = tempX;
-        position.z = tempY;
+    
+        position.x -= speed * cos(rotation * (M_PI / 180));
+        position.z += speed * sin(rotation * (M_PI / 180));
     }
 }
 

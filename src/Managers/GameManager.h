@@ -6,18 +6,11 @@
 #define MONPROJETSDL_GAMEMANAGER_H
 #include "../Utils/Include.h"
 #include "../Managers/ProjectileManager.h"
-#include "../Managers/CollisionManager.h"
 #include "../Classes/Camera.h"
-
 
 
 class GameManager {
 private:
-    //test
-    CollisionManager *collisionManager;
-    //fin test
-    double timeStartLoop;
-
     const Uint8* state = nullptr;
     SDL_Event event;
     bool isRunning = true;
@@ -26,7 +19,7 @@ private:
     SDL_GLContext context;
     int width = 800, height = 600;
     int mouseX=0,mouseY=0;
-    int planeSize=1;
+    float planeSize=1;
     std::vector<char> *mapList;
     Player *player;
     Camera *followCam;
