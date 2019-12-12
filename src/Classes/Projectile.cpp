@@ -5,13 +5,13 @@
 #include "Projectile.h"
 GLuint Projectile::idProjectile = 0;
 Projectile::Projectile(float anglePlayerCanon, glm::vec3 positionPlayer): anglePlayerCanon(anglePlayerCanon), position(positionPlayer) {
-    speed = 0.1;
     timeInstance = SDL_GetTicks();
 }
 void Projectile::isProjectileAlive(){
-    isAlive = timeInstance + timeAlive < SDL_GetTicks();
+    isAlive = !timeInstance + timeAlive < SDL_GetTicks();
 }
 void Projectile::draw() {
+    movement();
     glColor3f(0,0,255);
     glPushMatrix();
         glTranslatef(position.x, position.y + 0.2, position.z);
@@ -21,13 +21,23 @@ void Projectile::draw() {
         drawCube();
         //glCallList(idProjectile);
     glPopMatrix();
-    movement();
+
 }
 void Projectile::movement() {
+
     position.x += speed * cos(anglePlayerCanon * (M_PI / 180));
     position.z -= speed * sin(anglePlayerCanon * (M_PI / 180));
+
 }
 
 bool Projectile::getIsAlive() const {
     return isAlive;
+}
+
+const glm::vec3 &Projectile::getPosition() const {
+    return position;
+}
+
+void Projectile::setIsAlive(bool isAlive) {
+    Projectile::isAlive = isAlive;
 }
