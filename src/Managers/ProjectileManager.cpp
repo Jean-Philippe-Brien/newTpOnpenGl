@@ -13,10 +13,13 @@ void ProjectileManager::init() {
 
 }
 
-void ProjectileManager::update() {
+void ProjectileManager::update(CollisionManager* cm) {
     for(Projectile *p : projectile){
         p->draw();
         p->isProjectileAlive();
+        if(cm->detectColosion(p->getPosition(),0.1)){
+            p->setIsAlive(false);
+        }
     }
     checkBulletAlive();
 }
@@ -27,9 +30,8 @@ ProjectileManager::~ProjectileManager() {
 
 void ProjectileManager::checkBulletAlive() {
     std::vector<int> temp;
-
     for(int i = 0; i < projectile.size(); i++){
-        if(projectile[i]->getIsAlive()){
+        if(!projectile[i]->getIsAlive()){
             temp.push_back(i);
         }
     }

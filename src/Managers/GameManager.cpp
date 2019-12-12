@@ -21,19 +21,19 @@ void GameManager::init() {
     //glEnable(GL_DEPTH_TEST);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(60, (double) 800 / 600, 1, 1000);
+    gluPerspective(30, (double) 800 / 600, 1, 1000);
     //glEnable(GL_DEPTH_TEST);
 
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    
+
     projectileManager = new ProjectileManager();
 
-    player = new Player(glm::vec3(5,0,5));
+    player = new Player(glm::vec3(3,0,3));
     followCam = new Camera(player, 1);
     fpsCam = new Camera(player,2);
-    
+
     mapList = new std::vector<char>();
     std::ifstream file("assets/basicMap.txt"); //change file name here to test,   ** Need to implement event based file selection **
     if (file) {
@@ -46,12 +46,15 @@ void GameManager::init() {
     } else {        //Error if no file is loaded
         std::cout << "no file loaded" << std::endl;
     }
+    collisionManager = new CollisionManager();
+    collisionManager->init(mapList, planeSize);
     mapList->shrink_to_fit();
-    
+
 }
 void GameManager::loop() {
 
     while (isRunning) {
+        timeStartLoop = SDL_GetTicks();
         clean();
         glLoadIdentity();
         SDL_GetMouseState(&mouseX,&mouseY);
@@ -65,10 +68,12 @@ void GameManager::loop() {
 
         handleEvent();
         //std::cout << mouseX << " < X  ,  Y  > " << mouseY << std::endl;
-        SDL_Delay(1);
-        projectileManager->update();
+
+        projectileManager->update(collisionManager);
+        //wall->detectColosion(player);
         draw();
         //mise a jour de l'ecran
+        SDL_Delay(5);
     }
 }
 void GameManager::clean() {
@@ -77,8 +82,8 @@ void GameManager::clean() {
 }
 
 void GameManager::draw() {
-    
-    drawMap(planeSize,*mapList);
+
+    drawMap(planeSize,mapList);
     glColor3ub(0,0,0);
     
     player->drawEntity();
@@ -94,18 +99,20 @@ void GameManager::handleEvent() {
     if(state[SDL_SCANCODE_ESCAPE]){
         isRunning=false;
     }
+
     if(state[SDL_SCANCODE_W])
     {
         if(!viewChanged){
-            player->movement(true);
-        }else {player->movement(true);
+            player->movement(true, collisionManager);
+        }else {player->movement(true, collisionManager);
         }
     }
     if(state[SDL_SCANCODE_S])
     {
         if(!viewChanged){
-            player->movement(false);
-        }else {player->movement(false);
+            player->movement(false, collisionManager);
+        }else {
+            player->movement(false, collisionManager);
         }
     }
     if(state[SDL_SCANCODE_A])
@@ -156,13 +163,13 @@ void GameManager::handleEvent() {
         }else {player->setRotation(player->getRotation() - 1.5);
         }
     }
-    if(state[SDL_SCANCODE_V]){
-        //Reserved for View changes
-        if(viewChanged){
-            viewChanged=false;
-        }else{viewChanged=true;}
-        SDL_Delay(75);  //Temporary fix....
-    }
+        if (state[SDL_SCANCODE_V] && event.type == SDL_KEYDOWN) {
+            //Reserved for View changes
+            if (viewChanged) {
+                viewChanged = false;
+            } else { viewChanged = true; }
+            SDL_Delay(75);  //Temporary fix....
+        }
     
 }
 GameManager::~GameManager() {
