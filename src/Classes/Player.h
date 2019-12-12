@@ -4,30 +4,23 @@
 
 #ifndef MONPROJETSDL_PLAYER_H
 #define MONPROJETSDL_PLAYER_H
-#include <GL/gl.h>
-#include <GL/glu.h>
-#include <vector>
-#include <fstream>
-#include "Classes/Entity.h"
-#include <cstdlib>
-#include <string>
-#include <algorithm>
-#include <cstdio>
-#include <iostream>
-#include "Utils/glUtils.h"
-#include <string>
-#include "Classes/Projectile.h"
+
+#include "../Utils/Include.h"
+#include "Entity.h"
+#include "../Utils/glUtils.h"
+#include "Projectile.h"
+#include "../Managers/CollisionManager.h"
+
 
 class Player: public Entity {
 private:
-    std::vector<Projectile*> projectile;
     float fireRate = 200;
     float lastFire = 0;
     GLuint idBaseThank = 0;
     GLuint idBaseCanon = 0;
 public:
     explicit Player(const glm::vec3 pos);
-    void movement(bool forward);
+    void movement(bool forward, CollisionManager *cm);
     void setPos(const glm::vec3 &pos) override;
     const glm::vec3 &getPos() const override;
     float getRotation() const override;

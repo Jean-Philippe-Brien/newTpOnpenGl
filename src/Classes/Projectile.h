@@ -11,7 +11,7 @@
 class Projectile {
 private:
     float timeInstance;
-    float speed = 0.7;
+    float speed = 0.1;
     float anglePlayerCanon = 0;
     float timeAlive = 1000; // en milliseconde
     bool isAlive = true;
@@ -19,12 +19,15 @@ private:
 
 public:
     bool getIsAlive() const;
-
     void isProjectileAlive();
     static GLuint idProjectile;
     Projectile(float anglePlayerCanon, glm::vec3 positionPlayer);
     void draw();
     void movement();
+
+    const glm::vec3 &getPosition() const;
+
+    void setIsAlive(bool isAlive);
 };
 
 
