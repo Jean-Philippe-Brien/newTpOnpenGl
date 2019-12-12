@@ -14,6 +14,7 @@ void drawCube() {
     //glColor3f(0.5,0.5,0.5);
     glBegin(GL_TRIANGLES);
     /*      This is the bottom face*/
+
     glNormal3f(0.0f, -1.0f, 0.0f);
     glVertex3f(1.0f, -1.0f, -1.0f);
     glVertex3f(1.0f, -1.0f, 1.0f);
@@ -208,7 +209,7 @@ void drawAxe() {
     glPopMatrix();
 }
 //Renders a Plane filled with walls/cubes/towers.               Param planeSize -> Obtained by loading the file using the code in next Method.
-void drawMap(float planeSize, std::vector<char> mapData) {
+void drawMap(float planeSize, std::vector<char>* mapData) {
  
     float i = 0, j = 0, k = 0;
     //Draw flat plane
@@ -219,43 +220,17 @@ void drawMap(float planeSize, std::vector<char> mapData) {
     
     //Draw cubes on the plane
     glPushMatrix(); // ** for each char in mapData, place proper cube.
-    for (auto c : mapData) {
+    for (auto c : *mapData) {
+        //std::cout << ((int)c - 48) << std::endl;
         switch (c) {
             case '0':
-                break;
             case '1':
-                glPushMatrix();
-                glColor3ub(80, 80, 80);
-                glTranslatef(k + .5, 0.5, j + .5);
-                glScalef(0.5, 0.5, 0.5);
-                drawCube();
-                glPopMatrix();
-                break;
             case '2':
-                for (float h = 0; h < 2; h++) {
+            case '3':
+            case '4':
+                for (int h = 0; h < ((int)c - 48); h++) {
                     glPushMatrix();
                     glColor3ub(80, 80, 80);
-                    glTranslatef(k + .5, h + .5, j + .5);
-                    glScalef(0.5, 0.5, 0.5);
-                    drawCube();
-                    glPopMatrix();
-                }
-                break;
-            case '3':
-                for (float h = 0; h < 3; h++) {
-                    glPushMatrix();
-                    if(h<2) {glColor3ub(50, 50, 50);
-                    }else{glColor3ub(120, 120, 120);}
-                    glTranslatef(k + .5, h + .5, j + .5);
-                    glScalef(0.5, 0.5, 0.5);
-                    drawCube();
-                    glPopMatrix();
-                }
-                break;
-            case '4':
-                for (float h = 0; h < 4; h++) {
-                    glPushMatrix();
-                    glColor3ub(150, 150, 150);
                     glTranslatef(k + .5, h + .5, j + .5);
                     glScalef(0.5, 0.5, 0.5);
                     drawCube();

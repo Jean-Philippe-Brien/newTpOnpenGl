@@ -24,7 +24,7 @@ void drawRect(int length, int dir);
 
 void drawAxe();
 
-void drawMap(float planeSize, std::vector<char> mapData) ;
+void drawMap(float planeSize, std::vector<char>* mapData) ;
 
 int loadOBJ(std::string path);
 
