@@ -7,8 +7,7 @@
 
 #include "../Utils/Include.h"
 #include "../Classes/Projectile.h"
-#include "../Classes/Player.h"
-#include "CollisionManager.h"
+#include "../Player.h"
 class ProjectileManager {
 private:
     std::vector<Projectile*> projectile;
@@ -17,7 +16,7 @@ public:
     void checkBulletAlive();
     void createProjectile(Player *player);
     void init();
-    void update(CollisionManager* cm);
+    void update();
     ~ProjectileManager();
 };
 
