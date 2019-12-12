@@ -14,6 +14,10 @@ void Camera::moveCam(Player* player,int viewType) {
             gluLookAt(camPos.x, camPos.y, camPos.z, player->getPos().x, 0, player->getPos().z, 0, 1, 0);
             break;
         case 2:
+            camPos.x = player->getPos().x - 10 * cos(player->getRotation() * (M_PI / 180));
+            camPos.z = player->getPos().z + 10 * sin(player->getRotation() * (M_PI / 180));
+            gluLookAt(camPos.x, camPos.y, camPos.z, player->getPos().x, 0, player->getPos().z, 0, 1, 0);
+        
             //Tank top mounted static fps camera
             break;
         default:

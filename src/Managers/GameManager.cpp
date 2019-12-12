@@ -35,7 +35,7 @@ void GameManager::init() {
     fpsCam = new Camera(player,2);
 
     mapList = new std::vector<char>();
-    std::ifstream file("assets/basicMap.txt"); //change file name here to test,   ** Need to implement event based file selection **
+    std::ifstream file("../assets/map/basicMap.txt"); //change file name here to test,
     if (file) {
         char c;
         while (file.get(c)) {
@@ -63,7 +63,7 @@ void GameManager::loop() {
             followCam->moveCam(player, 1);
             //FPS Cam below
         } else { //fpsCam->moveCam(player,2);
-            gluLookAt(6, 6, 4, 0, 0, 0, 0, 1, 0);
+            followCam->moveCam(player, 2);
         }
 
         handleEvent();
