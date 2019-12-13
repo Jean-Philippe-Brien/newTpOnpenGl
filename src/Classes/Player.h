@@ -14,6 +14,7 @@
 
 class Player: public Entity {
 private:
+    float tempX,tempY;
     float fireRate = 200;
     float lastFire = 0;
     GLuint idBaseThank = 0;
@@ -28,6 +29,15 @@ public:
     void drawEntity() override;
     float getCanonRotation() const override;
     void setCanonRotation(float canonRotation) override;
+    
+    float getTempX() const;
+    
+    void setTempX(float tempX);
+    
+    float getTempY() const;
+    
+    void setTempY(float tempY);
+    
     ~Player();
 
     float getFireRate1() const;
