@@ -16,9 +16,7 @@ void Camera::moveCam(Player* player,int viewType) {
         case 2:
             camPos.x = player->getPos().x - 3 * cos(player->getRotation() * (M_PI / 180));
             camPos.z = player->getPos().z + 3 * sin(player->getRotation() * (M_PI / 180));
-            gluLookAt(camPos.x, 2, camPos.z, player->getPos().x+1, 0.5, player->getPos().z, 0, 1, 0);
-        
-            //Tank top mounted static fps camera
+            gluLookAt(camPos.x, 2, camPos.z, player->getPos().x, 0, player->getPos().z, 0, 1, 0);
             break;
         default:
             break;
@@ -32,9 +30,9 @@ void Camera::moveCam(Player* player,int viewType) {
 Camera::Camera(Player* player,int camType){
     switch (camType){
         case 1:
-            camPos = glm::vec3((player->getPos().x),10,(player->getPos().z));
+            camPos = glm::vec3((player->getPos().x),4,(player->getPos().z));
             rotAngle = player->getRotation();
-            distance = 5;
+            distance = 10;
             lastX =0;
             lastY=0;
             break;
