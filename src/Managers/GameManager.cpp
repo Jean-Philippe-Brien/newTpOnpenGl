@@ -141,17 +141,15 @@ void GameManager::handleEvent() {
     }
     if(state[SDL_SCANCODE_LEFT])
     {
-        if(!viewChanged){
+
             player->setCanonRotation(player->getCanonRotation() + 0.7);
-        }else {
-        }
+
     }
     if(state[SDL_SCANCODE_RIGHT])
     {
-        if(!viewChanged){
+
             player->setCanonRotation(player->getCanonRotation() - 0.7);
-        }else {
-        }
+
     }
     if(state[SDL_SCANCODE_SPACE])
     {
