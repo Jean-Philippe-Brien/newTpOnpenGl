@@ -20,6 +20,7 @@ void Camera::moveCam(Player* player,int viewType) {
             tempX = player->getPos().x + 1 * cos((player->getRotation() + player->getCanonRotation()) * (M_PI / 180));
             tempY = player->getPos().z - 1 * sin((player->getRotation() + player->getCanonRotation()) * (M_PI / 180));
             gluLookAt(camPos.x, player->getPos().y + 1 , camPos.z, tempX, 0.9, tempY, 0, 1, 0);
+
             break;
         default:
             break;
@@ -33,9 +34,9 @@ void Camera::moveCam(Player* player,int viewType) {
 Camera::Camera(Player* player,int camType){
     switch (camType){
         case 1:
-            camPos = glm::vec3((player->getPos().x),10,(player->getPos().z));
+            camPos = glm::vec3((player->getPos().x),4,(player->getPos().z));
             rotAngle = player->getRotation();
-            distance = 5;
+            distance = 10;
             lastX =0;
             lastY=0;
             break;
