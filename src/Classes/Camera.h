@@ -16,7 +16,7 @@ public:
     glm::vec3 camPos;
     float camAngle;
     float rotAngle;
-    float distance;
+    float distance = 10;
     
     glm::vec3 fpsCamPos;
     glm::vec2 fpsCamRot;
@@ -28,6 +28,8 @@ public:
     
 
     void moveCam(Player* player,int viewTyconst);
+
+    void setDistance(float distance);
 };
 
 

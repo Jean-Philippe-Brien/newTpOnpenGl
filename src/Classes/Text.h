@@ -12,6 +12,7 @@
 class Text {
 private:
     int x, y;
+    std::string text;
     TTF_Font* font;
     SDL_Renderer* render;
     SDL_Surface *textSurface;
@@ -26,6 +27,7 @@ public:
     void changeColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
     void setPosition(int x, int y, int w, int h);
 
+    const std::string &getText() const;
 };
 
 

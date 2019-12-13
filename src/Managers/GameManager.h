@@ -28,13 +28,15 @@ private:
     int mouseX=0,mouseY=0;
     int planeSize=1;
     std::vector<char> *mapList;
+    std::string mapSelected;
     Player *player;
     Camera *followCam;
     Camera *fpsCam;
     ProjectileManager *projectileManager;
 
 public:
-
+    GameManager();
+    GameManager(std::string map);
     void init();
     void loop();
     void handleEvent();

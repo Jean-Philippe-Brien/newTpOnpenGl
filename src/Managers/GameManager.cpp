@@ -3,6 +3,16 @@
 //
 #include "GameManager.h"
 
+GameManager::GameManager() {
+    mapSelected = "basicMap.txt";
+}
+
+GameManager::GameManager(std::string map) {
+    if(map == "")*9+++++++++++++++++++++
+1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111;'[h        mapSelected = "basicMap.txt";
+    else
+        mapSelected = map;
+}
 
 void GameManager::init() {
     SDL_Init(SDL_INIT_VIDEO);
@@ -35,7 +45,7 @@ void GameManager::init() {
     fpsCam = new Camera(player,2);
 
     mapList = new std::vector<char>();
-    std::ifstream file("assets/basicMap.txt"); //change file name here to test,   ** Need to implement event based file selection **
+    std::ifstream file("../assets/map/" + mapSelected); //change file name here to test,   ** Need to implement event based file selection **
     if (file) {
         char c;
         while (file.get(c)) {
@@ -63,7 +73,7 @@ void GameManager::loop() {
             followCam->moveCam(player, 1);
             //FPS Cam below
         } else { //fpsCam->moveCam(player,2);
-            gluLookAt(6, 6, 4, 0, 0, 0, 0, 1, 0);
+            followCam->moveCam(player, 2);
         }
 
         handleEvent();
@@ -162,6 +172,15 @@ void GameManager::handleEvent() {
             player->setRotation(player->getRotation() - 1.5);
         }else {player->setRotation(player->getRotation() - 1.5);
         }
+    }
+    if(event.type == SDL_MOUSEWHEEL) {
+        if (event.wheel.y != 0) // scroll up
+        {
+            std::cout << event.wheel.y;
+            followCam->setDistance(event.wheel.y);
+
+        }
+        event.wheel.y = 0;
     }
         if (state[SDL_SCANCODE_V] && event.type == SDL_KEYDOWN) {
             //Reserved for View changes
