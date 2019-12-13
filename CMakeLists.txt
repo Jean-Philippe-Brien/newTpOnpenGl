@@ -24,7 +24,7 @@ file(
 add_executable(
         ${PROJECT_NAME_VALUE}
         ${source_files}
-        src/Utils/Include.h src/Classes/Camera.cpp src/Classes/Camera.h src/Managers/CollisionManager.cpp src/Managers/CollisionManager.h src/Classes/wallRect.cpp src/Classes/wallRect.h)
+        src/Utils/Include.h src/Classes/Camera.cpp src/Classes/Camera.h src/Managers/CollisionManager.cpp src/Managers/CollisionManager.h src/Classes/wallRect.cpp src/Classes/wallRect.h src/Classes/Enemy.cpp src/Classes/Enemy.h)
 
 
 if (WIN32)

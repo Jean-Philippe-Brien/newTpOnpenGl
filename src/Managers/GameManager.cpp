@@ -41,8 +41,7 @@ void GameManager::init() {
     projectileManager = new ProjectileManager();
 
     player = new Player(glm::vec3(3,0,3));
-    followCam = new Camera(player, 1);
-    fpsCam = new Camera(player,2);
+    followCam = new Camera(player);
 
     mapList = new std::vector<char>();
     std::ifstream file("../assets/map/" + mapSelected); //change file name here to test,   ** Need to implement event based file selection **
@@ -170,7 +169,7 @@ void GameManager::handleEvent() {
     if((state[SDL_SCANCODE_D]&&state[SDL_SCANCODE_W]) || (state[SDL_SCANCODE_S]&&state[SDL_SCANCODE_D])){
         if(!viewChanged){
             player->setRotation(player->getRotation() - 0.7);
-        }else {player->setRotation(player->getRotation() + 0.7);
+        }else {player->setRotation(player->getRotation() - 0.7);
         }
     }
     if(event.type == SDL_MOUSEWHEEL) {

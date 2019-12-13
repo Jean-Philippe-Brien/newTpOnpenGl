@@ -8,7 +8,7 @@
 #include "../Managers/ProjectileManager.h"
 #include "../Managers/CollisionManager.h"
 #include "../Classes/Camera.h"
-
+#include "../Classes/Enemy.h"
 
 
 class GameManager {
@@ -30,6 +30,7 @@ private:
     std::vector<char> *mapList;
     std::string mapSelected;
     Player *player;
+    Enemy *enemy;
     Camera *followCam;
     Camera *fpsCam;
     ProjectileManager *projectileManager;

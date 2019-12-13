@@ -17,14 +17,15 @@ public:
     float camAngle;
     float rotAngle;
     float distance = 10;
-    
+    float tempX;
+    float tempY;
     glm::vec3 fpsCamPos;
     glm::vec2 fpsCamRot;
     float fpsCamAngle;
     float lastX,lastY;
     
     
-    Camera(Player* player,int camType);
+    Camera(Player* player);
     
 
     void moveCam(Player* player,int viewTyconst);

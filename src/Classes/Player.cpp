@@ -17,8 +17,8 @@ Player::~Player() {
 
 void Player::movement(bool forward, CollisionManager *cm) {
     speed = 0.05;
-    float tempX = 0;
-    float tempY = 0;
+     tempX = 0;
+     tempY = 0;
     if(forward) {
         tempX = position.x + speed * cos(rotation * (M_PI / 180));
         tempY = position.z - speed * sin(rotation * (M_PI / 180));
@@ -87,4 +87,20 @@ float Player::getLastFire() const {
 
 void Player::setLastFire(float lastFire) {
     Player::lastFire = lastFire;
+}
+
+float Player::getTempX() const {
+    return tempX;
+}
+
+void Player::setTempX(float tempX) {
+    Player::tempX = tempX;
+}
+
+float Player::getTempY() const {
+    return tempY;
+}
+
+void Player::setTempY(float tempY) {
+    Player::tempY = tempY;
 }
