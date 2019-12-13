@@ -133,14 +133,14 @@ void GameManager::handleEvent() {
     {
         if(!viewChanged){
             player->setCanonRotation(player->getCanonRotation() + 0.7);
-        }else {
+        }else {player->setCanonRotation(player->getCanonRotation() + 0.7);
         }
     }
     if(state[SDL_SCANCODE_RIGHT])
     {
         if(!viewChanged){
             player->setCanonRotation(player->getCanonRotation() - 0.7);
-        }else {
+        }else {player->setCanonRotation(player->getCanonRotation() - 0.7);
         }
     }
     if(state[SDL_SCANCODE_SPACE])
@@ -153,14 +153,14 @@ void GameManager::handleEvent() {
     }
     if((state[SDL_SCANCODE_A]&&state[SDL_SCANCODE_W]) || (state[SDL_SCANCODE_S]&&state[SDL_SCANCODE_A])){
         if(!viewChanged){
-            player->setRotation(player->getRotation() + 1.5);
-        }else {player->setRotation(player->getRotation() + 1.5);
+            player->setRotation(player->getRotation() + 0.7);
+        }else {player->setRotation(player->getRotation() + 0.7);
         }
     }
     if((state[SDL_SCANCODE_D]&&state[SDL_SCANCODE_W]) || (state[SDL_SCANCODE_S]&&state[SDL_SCANCODE_D])){
         if(!viewChanged){
-            player->setRotation(player->getRotation() - 1.5);
-        }else {player->setRotation(player->getRotation() - 1.5);
+            player->setRotation(player->getRotation() - 0.7);
+        }else {player->setRotation(player->getRotation() + 0.7);
         }
     }
         if (state[SDL_SCANCODE_V] && event.type == SDL_KEYDOWN) {
