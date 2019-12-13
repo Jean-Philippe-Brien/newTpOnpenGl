@@ -30,6 +30,8 @@ void MenuManager::init() {
 }
 
 MenuManager::~MenuManager() {
+    TTF_Quit();
+    IMG_Quit();
     SDL_DestroyRenderer(render);
     SDL_DestroyWindow(win);
     SDL_Quit();
