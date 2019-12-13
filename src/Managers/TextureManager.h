@@ -14,8 +14,11 @@ class TextureManager {
 
         SDL_Renderer* render;
         SDL_Surface* surface;
+        std::string path;
     public:
-        SDL_Rect screenRect = {0,0,0,0};
+    const std::string &getPath() const;
+
+    SDL_Rect screenRect = {0,0,0,0};
         explicit TextureManager( );
         ~TextureManager();
         virtual void loadTexture(std::string path, SDL_Renderer* render);

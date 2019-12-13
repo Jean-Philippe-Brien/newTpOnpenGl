@@ -11,8 +11,12 @@
 #include "../Classes/Text.h"
 #include <sys/types.h>
 #include <dirent.h>
-
+enum MenuState{
+    firstPage,
+    selectStage
+};
 class MenuManager {
+
     std::vector<std::string> mapName;
     std::vector<TextureManager*> mapTexture;
     std::vector<Text*> mapText;
@@ -30,12 +34,19 @@ class MenuManager {
     SDL_Window *win;
     int width = 800, height = 600;
     bool inMenu = true;
-    int levelSelected;
+    std::string levelSelected = "";
     int mouseX;
     int mouseY;
     bool mouseDown = false;
+    bool quitGame = false;
 
 public:
+    bool isQuitGame() const;
+
+    const std::string &getLevelSelected() const;
+
+    MenuState menuState;
+
     MenuManager();
     
     void init();
@@ -50,7 +61,7 @@ public:
 
     void setInMenu(bool inMenu);
 
-    void setButtonTexture(TextureManager* texture, std::string fileNameNoExt);
+    void setButtonTexture(TextureManager* texture, std::string fileNameNoExt, std::string buttonName);
 
     void drawMapSelection();
 

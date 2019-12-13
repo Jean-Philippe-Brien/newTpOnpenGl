@@ -10,6 +10,7 @@ TextureManager::TextureManager() {
 }
 
 void TextureManager::loadTexture(const std::string path, SDL_Renderer* render) {
+    this->path = path;
     this->render = render;
     surface = IMG_Load(path.c_str());
     texture = SDL_CreateTextureFromSurface(render, surface);
@@ -40,4 +41,8 @@ void TextureManager::setScreenRectH(int h) {
 
 const SDL_Rect &TextureManager::getScreenRect() const {
     return screenRect;
+}
+
+const std::string &TextureManager::getPath() const {
+    return path;
 }

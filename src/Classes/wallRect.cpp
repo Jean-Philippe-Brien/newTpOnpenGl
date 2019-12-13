@@ -22,7 +22,6 @@ wallRect::wallRect(std::vector<char>* map, int planeSize) {
             k = 0;
         }
     }
-    std::cout << "bob";
 }
 
 void wallRect::addCube(glm::vec3 pos) {
