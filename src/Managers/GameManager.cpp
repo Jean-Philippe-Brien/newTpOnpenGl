@@ -8,8 +8,8 @@ GameManager::GameManager() {
 }
 
 GameManager::GameManager(std::string map) {
-    if(map == "")*9+++++++++++++++++++++
-1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111;'[h        mapSelected = "basicMap.txt";
+    if(map == "")
+        mapSelected = "basicMap.txt";
     else
         mapSelected = map;
 }
