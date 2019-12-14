@@ -109,20 +109,6 @@ void GameManager::draw() {
     if (enemy->isAlive()) {
         enemy->drawEntity();
     }
-    
-    /*for (Node n : *nodeList) {
-        glPushMatrix();
-        if(!n.isWalkable()){
-            glTranslatef(n.getX(), 0.3, n.getY());
-            glColor3ub(255,0,0);
-        }else{        glTranslatef(n.getX(), -0.3, n.getY());
-            glColor3ub(100,100,100);}
-        
-        glScalef(0.45, 0.45, 0.45);
-        drawCube();
-        glPopMatrix();
-    }*/
-    
     glFlush();
     SDL_GL_SwapWindow(win);
 }
