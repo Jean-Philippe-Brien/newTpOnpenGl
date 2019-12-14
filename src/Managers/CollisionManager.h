@@ -15,7 +15,9 @@ private:
 public:
     void init(std::vector<char>* map, int planeSize);
     void Update();
-    bool detectColosion(glm::vec3 player, float halfWhidth);
+    bool detectWallCollision(glm::vec3 posToVerify, float halfWhidth);
+    bool detectBulletCollision(glm::vec3 bulletPos, glm::vec3 entityPos);
+    
 };
 
 

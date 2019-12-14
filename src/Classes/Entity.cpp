@@ -6,6 +6,8 @@
 
 
 
+Entity::Entity(const glm::vec3 &position) : position(position) {}
+
 
 void Entity::drawEntity() {
 
@@ -19,20 +21,13 @@ void Entity::movement() {
 
 
 //Getter/Setter
-float Entity::getIsAlive() const {
-    return isAlive;
-}
-
-void Entity::setIsAlive(float isAlive) {
-    Entity::isAlive = isAlive;
-}
 
 float Entity::getSpeed() const {
-    return speed;
+    return baseSpeed;
 }
 
 void Entity::setSpeed(float speed) {
-    Entity::speed = speed;
+    Entity::baseSpeed = speed;
 }
 
 const glm::vec3 &Entity::getPos() const {
@@ -67,8 +62,6 @@ void Entity::setCanonRotation(float canonRotation) {
     Entity::canonRotation = canonRotation;
 }
 
-
-
 double Entity::getHp() const {
     return hp;
 }
@@ -77,14 +70,20 @@ void Entity::setHp(double hp) {
     Entity::hp = hp;
 }
 
-Entity::Entity(const glm::vec3 &position) : position(position) {}
-
 const glm::vec3 &Entity::getPosition() const {
     return position;
 }
 
 void Entity::setPosition(const glm::vec3 &position) {
     Entity::position = position;
+}
+
+bool Entity::isAlive() const {
+    return alive;
+}
+
+void Entity::setIsAlive(bool alive) {
+    Entity::alive = alive;
 }
 
 

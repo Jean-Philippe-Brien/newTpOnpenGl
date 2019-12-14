@@ -13,12 +13,20 @@ void ProjectileManager::init() {
 
 }
 
-void ProjectileManager::update(CollisionManager* cm) {
+void ProjectileManager::update(CollisionManager* cm,Player* player,Enemy* enemy) {
     for(Projectile *p : projectile){
         p->draw();
         p->isProjectileAlive();
-        if(cm->detectColosion(p->getPosition(),0.1)){
+        if(cm->detectWallCollision(p->getPosition(), 0.1)){
             p->setIsAlive(false);
+        }
+        if(cm->detectBulletCollision(p->getPosition(),enemy->getPosition())){
+            p->setIsAlive(false);
+            enemy->setHp(enemy->getHp()-20);
+            if(enemy->getHp()==0){
+                enemy->setIsAlive(false);
+                delete enemy;
+            }
         }
     }
     checkBulletAlive();

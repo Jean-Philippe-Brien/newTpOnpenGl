@@ -5,24 +5,11 @@
 #include "Enemy.h"
 #include "../Utils/glUtils.h"
 
-const glm::vec3 &Enemy::getPos() const {
-    return Entity::getPos();
-}
 
-float Enemy::getRotation() const {
-    return Entity::getRotation();
-}
-
-void Enemy::setRotation(float rotation) {
-    Entity::setRotation(rotation);
-}
-
-float Enemy::getCanonRotation() const {
-    return Entity::getCanonRotation();
-}
-
-void Enemy::setCanonRotation(float canonRotation) {
-    Entity::setCanonRotation(canonRotation);
+Enemy::Enemy(const glm::vec3 &position) : Entity(position) {
+    idBaseThank = loadOBJ("assets/thisThank.obj");
+    idBaseCanon = loadOBJ("assets/thisThankCanon.obj");
+    alive=true;
 }
 
 void Enemy::movement() {
@@ -44,17 +31,28 @@ void Enemy::drawEntity() {
     glPopMatrix();
 }
 
-void Enemy::setPos(const glm::vec3 &pos) {
-    Entity::setPos(pos);
-}
-
-Enemy::Enemy(const glm::vec3 &position) : Entity(position) {
-    idBaseThank = loadOBJ("assets/thisThank.obj");
-    idBaseCanon = loadOBJ("assets/thisThankCanon.obj");
-}
-
 void Enemy::chase(glm::vec3 pos) {
 
 }
 
 
+
+
+void Enemy::setPos(const glm::vec3 &pos) {
+    Entity::setPos(pos);
+}
+const glm::vec3 &Enemy::getPos() const {
+    return Entity::getPos();
+}
+float Enemy::getRotation() const {
+    return Entity::getRotation();
+}
+void Enemy::setRotation(float rotation) {
+    Entity::setRotation(rotation);
+}
+float Enemy::getCanonRotation() const {
+    return Entity::getCanonRotation();
+}
+void Enemy::setCanonRotation(float canonRotation) {
+    Entity::setCanonRotation(canonRotation);
+}

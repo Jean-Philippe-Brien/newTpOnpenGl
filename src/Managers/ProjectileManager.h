@@ -8,6 +8,7 @@
 #include "../Utils/Include.h"
 #include "../Classes/Projectile.h"
 #include "../Classes/Player.h"
+#include "../Classes/Enemy.h"
 #include "CollisionManager.h"
 class ProjectileManager {
 private:
@@ -17,7 +18,7 @@ public:
     void checkBulletAlive();
     void createProjectile(Player *player);
     void init();
-    void update(CollisionManager* cm);
+    void update(CollisionManager* cm,Player* player,Enemy* enemy);
     ~ProjectileManager();
 };
 

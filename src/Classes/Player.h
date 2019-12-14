@@ -25,7 +25,7 @@ public:
     
     bool isHit();
     
-    
+    //Getter / Setter
     void setPos(const glm::vec3 &pos) override;
     const glm::vec3 &getPos() const override;
     float getRotation() const override;
@@ -33,23 +33,15 @@ public:
     void drawEntity() override;
     float getCanonRotation() const override;
     void setCanonRotation(float canonRotation) override;
-    
     float getTempX() const;
-    
     void setTempX(float tempX);
-    
     float getTempY() const;
-    
     void setTempY(float tempY);
-    
-    ~Player();
-
     float getFireRate1() const;
-
     float getLastFire() const;
-
     void setLastFire(float lastFire);
-
+    ~Player();
+    
 };
 
 

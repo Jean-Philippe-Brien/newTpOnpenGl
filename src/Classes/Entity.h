@@ -8,13 +8,13 @@
 #include "../Utils/Include.h"
 
 
-class Entity {      //An entity is just that, an Entity, a being, either a player or an AI
+class Entity {
 
 protected:
     //Base Variables
-    float isAlive;
-    float speed = 0;
-    double hp;
+    bool alive;
+    float baseSpeed = 0.05;
+    double hp=100;
     glm::vec3 position; //(xf,yf,zf)
     float canonSpeed = 0;
     float rotation = 0;
@@ -25,9 +25,9 @@ public:
     explicit Entity(const glm::vec3 &position);
     
     //Geter/Setter
-    float getIsAlive() const;
+    bool isAlive() const;
     
-    void setIsAlive(float isAlive);
+    void setIsAlive(bool isAlive);
     
     float getSpeed() const;
     

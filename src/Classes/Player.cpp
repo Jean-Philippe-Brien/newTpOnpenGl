@@ -16,18 +16,17 @@ Player::~Player() {
 }
 
 void Player::movement(bool forward, CollisionManager *cm) {
-    speed = 0.05;
      tempX = 0;
      tempY = 0;
     if(forward) {
-        tempX = position.x + speed * cos(rotation * (M_PI / 180));
-        tempY = position.z - speed * sin(rotation * (M_PI / 180));
+        tempX = position.x + baseSpeed * cos(rotation * (M_PI / 180));
+        tempY = position.z - baseSpeed * sin(rotation * (M_PI / 180));
     } else {
 
-        tempX = position.x - speed * cos(rotation * (M_PI / 180));
-        tempY = position.z + speed * sin(rotation * (M_PI / 180));
+        tempX = position.x - baseSpeed * cos(rotation * (M_PI / 180));
+        tempY = position.z + baseSpeed * sin(rotation * (M_PI / 180));
     }
-    if(!cm->detectColosion(glm::vec3(tempX, 0, tempY),0.5)){
+    if(!cm->detectWallCollision(glm::vec3(tempX, 0, tempY), 0.5)){
         position.x = tempX;
         position.z = tempY;
     }
@@ -50,6 +49,7 @@ void Player::drawEntity() {
     glPopMatrix();
 
 }
+
 
 //Getter // Setter
 const glm::vec3 &Player::getPos() const {
