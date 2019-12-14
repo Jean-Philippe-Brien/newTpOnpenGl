@@ -69,10 +69,10 @@ void GameManager::init() {
     mapList->shrink_to_fit();
     nodeList->shrink_to_fit();
     
-    for (Node n: *nodeList) {
+    /*for (Node n: *nodeList) {
         std::cout << "Node " << k << " = " << n.getX() << " , " << n.getY() << std::endl;
         k++;
-    }
+    }*/
 }
 
 void GameManager::loop() {
@@ -109,17 +109,20 @@ void GameManager::draw() {
     if (enemy->isAlive()) {
         enemy->drawEntity();
     }
-   /* for(Node n : *nodeList){
+    /*for(Node n : *nodeList){
         glPushMatrix();
         if(!n.isWalkable()){
             glColor3ub(255,0,0);
-        }else{glColor3ub(100,100,100);}
-        glTranslatef(n.getX(),-0.3,n.getY());
-        glScalef(0.4,0.4,0.4);
-        drawCube();
+            glTranslatef(n.getX()+.5,.7,n.getY()+.5);
+            glScalef(0.4,0.4,0.4);
+            drawCube();
+        }else{glColor3ub(100,100,100);
+            glTranslatef(n.getX()+.5,-0.3,n.getY()+.5);
+            glScalef(0.4,0.4,0.4);
+            drawCube();}
+        
         glPopMatrix();
     }*/
-   
     glFlush();
     SDL_GL_SwapWindow(win);
 }
