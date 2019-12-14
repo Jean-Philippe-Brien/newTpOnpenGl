@@ -39,8 +39,8 @@ void GameManager::init() {
     glLoadIdentity();
 
     projectileManager = new ProjectileManager();
-
-    player = new Player(glm::vec3(3,0,3));
+    enemy = new Enemy(glm::vec3(20,0,3));
+    player = new Player(glm::vec3(10,0,3));
     followCam = new Camera(player);
 
     mapList = new std::vector<char>();
@@ -96,6 +96,7 @@ void GameManager::draw() {
     glColor3ub(0,0,0);
     
     player->drawEntity();
+    enemy->drawEntity();
     glFlush();
     SDL_GL_SwapWindow(win);
 }

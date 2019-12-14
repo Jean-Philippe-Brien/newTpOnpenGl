@@ -22,6 +22,10 @@ private:
 public:
     explicit Player(const glm::vec3 pos);
     void movement(bool forward, CollisionManager *cm);
+    
+    bool isHit();
+    
+    
     void setPos(const glm::vec3 &pos) override;
     const glm::vec3 &getPos() const override;
     float getRotation() const override;

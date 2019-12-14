@@ -16,8 +16,8 @@ void Projectile::draw() {
     glPushMatrix();
         glTranslatef(position.x, position.y + 0.2, position.z);
         glRotatef(this->anglePlayerCanon, 0, 1, 0);
-        glTranslatef(0.5,0,0);
-        glScaled(0.1,0.1,0.1);
+        glTranslatef(0.55,0.25,0);
+        glScaled(0.03,0.03,0.03);
         drawCube();
         //glCallList(idProjectile);
     glPopMatrix();

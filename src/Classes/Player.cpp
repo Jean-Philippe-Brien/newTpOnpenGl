@@ -40,7 +40,7 @@ void Player::drawEntity() {
         glTranslatef(position.x, position.y, position.z);
         
         glRotatef(rotation, 0, 1, 0);
-        drawAxe();
+        //drawAxe();
         glRotatef(90,0,1,0);
         glScalef(0.2f,0.2f,0.2f);
         glColor3f(0,0,1);
