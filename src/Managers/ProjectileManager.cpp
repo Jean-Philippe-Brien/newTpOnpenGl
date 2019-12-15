@@ -14,14 +14,16 @@ void ProjectileManager::init() {
 }
 
 void ProjectileManager::update(CollisionManager* cm) {
+    checkBulletAlive();
     for(Projectile *p : projectile){
-        p->draw();
+
         p->isProjectileAlive();
         if(cm->detectColosion(p->getPosition(),0.1)){
             p->setIsAlive(false);
         }
+        p->draw();
+
     }
-    checkBulletAlive();
 }
 
 ProjectileManager::~ProjectileManager() {

@@ -14,16 +14,18 @@ void Projectile::isProjectileAlive(){
     isAlive = !timeInstance + timeAlive < SDL_GetTicks();
 }
 void Projectile::draw() {
-    movement();
-    glColor3f(0,0,255);
-    glPushMatrix();
+    if(isAlive) {
+        movement();
+        glColor3f(0, 0, 255);
+        glPushMatrix();
         glTranslatef(position.x, position.y + 0.2, position.z);
         glRotatef(this->anglePlayerCanon, 0, 1, 0);
-        glTranslatef(0.5,0,0);
-        glScaled(0.1,0.1,0.1);
+        glTranslatef(0.5, 0, 0);
+        glScaled(0.1, 0.1, 0.1);
         drawCube();
         //glCallList(idProjectile);
-    glPopMatrix();
+        glPopMatrix();
+    }
 
 }
 void Projectile::movement() {
