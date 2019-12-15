@@ -12,6 +12,7 @@ class Projectile {
 private:
     float timeInstance;
     float speed = 0.8;
+
     float anglePlayerCanon = 0;
     float timeAlive = 1000; // en milliseconde
     bool isAlive = true;

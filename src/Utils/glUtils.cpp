@@ -231,7 +231,7 @@ void drawMap(float planeSize, std::vector<char>* mapData) {
                 for (int h = 0; h < ((int)c - 48); h++) {
                     glPushMatrix();
                     glColor3ub(80, 80, 80);
-                    glTranslatef(k + .5, h + .5, j + .5);
+                    glTranslatef(k + .5, h+.5, j + .5);
                     glScalef(0.5, 0.5, 0.5);
                     drawCube();
                     glPopMatrix();

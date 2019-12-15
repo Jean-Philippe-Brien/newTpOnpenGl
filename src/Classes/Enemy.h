@@ -19,9 +19,14 @@ public:
     explicit Enemy(const glm::vec3 &position);
     
     
+    void chase(glm::vec3 pos);
     
-   void chase(glm::vec3 pos);
-   void shoot();
+    void shoot();
+    
+    void movement() override;
+    
+    void drawEntity() override;
+    
     
     
     const glm::vec3 &getPos() const override;
@@ -33,10 +38,6 @@ public:
     float getCanonRotation() const override;
     
     void setCanonRotation(float canonRotation) override;
-    
-    void movement() override;
-    
-    void drawEntity() override;
     
     void setPos(const glm::vec3 &pos) override;
 };
