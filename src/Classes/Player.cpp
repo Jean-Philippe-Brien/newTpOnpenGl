@@ -42,7 +42,7 @@ void Player::drawEntity() {
         //drawAxe();
         glRotatef(90,0,1,0);
         glScalef(0.2f,0.2f,0.2f);
-        glColor3f(0,0,1);
+        glColor3f(1,1,1);
         glCallList(idBaseThank);
         glRotatef( canonRotation,0,1,0);
         glCallList(idBaseCanon);

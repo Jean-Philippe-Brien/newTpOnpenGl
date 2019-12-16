@@ -17,8 +17,10 @@ private:
     //test
     CollisionManager *collisionManager;
     //fin test
+    GLuint idMap;
     double timeStartLoop;
-
+    GLuint idTextureBuilding;
+    GLuint idTextureGrass;
     const Uint8* state = nullptr;
     SDL_Event event;
     bool isRunning = true;

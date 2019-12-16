@@ -16,7 +16,7 @@ public:
     glm::vec3 camPos;
     float camAngle;
     float rotAngle;
-    float distance = 10;
+    float distance = 5;
     float tempX;
     float tempY;
     glm::vec3 fpsCamPos;

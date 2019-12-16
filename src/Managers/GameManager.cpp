@@ -25,9 +25,11 @@ void GameManager::init() {
     context = SDL_GL_CreateContext(win);
     glClearDepth(1);
     glEnable(GL_DEPTH_TEST);
-    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT_MODEL_AMBIENT);
     glEnable(GL_LIGHT0);
-    glEnable(GL_COLOR_MATERIAL);
+
+    glEnable(GL_TEXTURE_2D);
+    //glEnable(GL_COLOR_MATERIAL);
     glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
     //glEnable(GL_DEPTH_TEST);
     glMatrixMode(GL_PROJECTION);
@@ -38,14 +40,15 @@ void GameManager::init() {
     
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    
+    idTextureBuilding = loadTexture("../assets/textureBuilding.jpg", true);
+    idTextureGrass = loadTexture("../assets/grass.jpg", true);
     projectileManager = new ProjectileManager();
     enemy = new Enemy(glm::vec3(20, 0, 3));
     player = new Player(glm::vec3(15, 0, 3));
     followCam = new Camera(player);
     mapList = new std::vector<char>();
     nodeList = new std::vector<Node>();
-    
+
     std::ifstream file("../assets/map/" +
                        mapSelected); //change file name here to test,   ** Need to implement event based file selection **
     int i = 0, j = 0, k = 0;
@@ -68,7 +71,7 @@ void GameManager::init() {
     collisionManager->init(mapList, planeSize);
     mapList->shrink_to_fit();
     nodeList->shrink_to_fit();
-    
+    idMap = drawMap(planeSize, mapList, idTextureBuilding);
     /*for (Node n: *nodeList) {
         std::cout << "Node " << k << " = " << n.getX() << " , " << n.getY() << std::endl;
         k++;
@@ -103,8 +106,11 @@ void GameManager::clean() {
 }
 
 void GameManager::draw() {
-    
-    drawMap(planeSize, mapList);
+    glPushMatrix();
+    drawPlane(planeSize, idTextureGrass);
+    glCallList(idMap);
+
+    glPopMatrix();
     player->drawEntity();
     if (enemy->isAlive()) {
         enemy->drawEntity();
@@ -212,6 +218,8 @@ void GameManager::handleEvent() {
 
 GameManager::~GameManager() {
     SDL_GL_DeleteContext(context);
+    glDeleteTextures(1, &idTextureBuilding);
+    glDeleteTextures(1, &idTextureGrass);
     SDL_DestroyWindow(win);
     TTF_Quit();
     SDL_Quit();

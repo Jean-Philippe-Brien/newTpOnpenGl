@@ -15,6 +15,6 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <filesystem>
-
+#include <SDL2/SDL_image.h>
 
 #endif //RUSTBUCKETS_INCLUDE_H

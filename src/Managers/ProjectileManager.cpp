@@ -45,7 +45,9 @@ void ProjectileManager::checkBulletAlive() {
         }
     }
     for(int i = 0; i < temp.size(); i++){
+        delete projectile.at(temp[i]);
         projectile.erase(projectile.begin() + temp[i]);
+
     }
 
 }

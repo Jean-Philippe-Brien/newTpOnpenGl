@@ -7,7 +7,8 @@
 
 #include "Include.h"
 #include <vector>
-
+GLuint loadTexture(const char * filename, bool useMipMap);
+void drawCubeMap(float textureX, float textureY, GLuint idTexture);
 void drawCube();
 
 void drawTriangle();
@@ -18,13 +19,13 @@ void drawWall(int length, int dir);
 
 void drawCircle(float k, float r, float h);
 
-void drawPlane(float size);
+void drawPlane(float size, GLuint idTexture);
 
 void drawRect(int length, int dir);
 
 void drawAxe();
 
-void drawMap(float planeSize, std::vector<char>* mapData) ;
+int drawMap(float planeSize, std::vector<char>* mapData, GLuint idTexture);
 
 int loadOBJ(std::string path);
 

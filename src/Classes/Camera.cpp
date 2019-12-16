@@ -36,9 +36,8 @@ void Camera::moveCam(Player *player, int viewType) {
 
 Camera::Camera(Player *player) {
     
-    camPos = glm::vec3((player->getPos().x), 4, (player->getPos().z));
+    camPos = glm::vec3((player->getPos().x), 1, (player->getPos().z));
     rotAngle = player->getRotation();
-    distance = 10;
     lastX = 0;
     lastY = 0;
     
