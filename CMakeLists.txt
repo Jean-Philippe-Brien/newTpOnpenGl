@@ -24,7 +24,7 @@ file(
 add_executable(
         ${PROJECT_NAME_VALUE}
         ${source_files}
-        src/Utils/Pathfinding/Node.cpp src/Utils/Pathfinding/Node.h)
+        src/Utils/Pathfinding/Node.cpp src/Utils/Pathfinding/Node.h src/Utils/Pathfinding/aStar.cpp src/Utils/Pathfinding/aStar.h)
 
 
 if (WIN32)

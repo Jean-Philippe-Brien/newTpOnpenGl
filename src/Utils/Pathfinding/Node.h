@@ -10,18 +10,27 @@ class Node {
 
 private:
     int x,y;
-    int fCost,gCost,hCost;
+    int gCost,hCost;
     bool walkable;
+    int id;
+    static Node* parent;
 public:
     bool isWalkable() const;
     
     void setWalkable(bool walkable);
 
-
-public:
-    Node(int x,int y);
+    int fCost();
+    
     
 
+    
+    Node();
+    Node(int x,int y);
+    
+    int getId() const;
+    
+    void setId(int id);
+    
     int getX() const;
     
     void setX(int x);
@@ -30,10 +39,6 @@ public:
     
     void setY(int y);
     
-    int getFCost() const;
-    
-    void setFCost(int fCost);
-    
     int getGCost() const;
     
     void setGCost(int gCost);
@@ -41,6 +46,10 @@ public:
     int getHCost() const;
     
     void setHCost(int hCost);
+    
+    static Node *getParent();
+    
+    static void setParent(Node *parent);
 };
 
 
