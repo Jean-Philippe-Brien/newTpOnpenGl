@@ -1,5 +1,5 @@
 //
-// Created by jean- on 2019-11-28.
+// Created by jean&seb on 2019-11-28.
 //
 #include "GameManager.h"
 
@@ -31,11 +31,9 @@ void GameManager::init() {
     glEnable(GL_TEXTURE_2D);
     //glEnable(GL_COLOR_MATERIAL);
     glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
-    //glEnable(GL_DEPTH_TEST);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluPerspective(30, (double) 800 / 600, 1, 1000);
-    //glEnable(GL_DEPTH_TEST);
     
     
     glMatrixMode(GL_MODELVIEW);
@@ -48,7 +46,6 @@ void GameManager::init() {
     followCam = new Camera(player);
     mapList = new std::vector<char>();
     nodeList = new std::vector<Node>();
-
     std::ifstream file("../assets/map/" +
                        mapSelected); //change file name here to test,   ** Need to implement event based file selection **
     int i = 0, j = 0, k = 0;
@@ -60,6 +57,7 @@ void GameManager::init() {
                 mapList->push_back(c);
                 Node *n = new Node(i, j);
                 n->setWalkable(c == '0');
+                n->setId(i);
                 nodeList->push_back(*n);
                 i++;
             } else { planeSize++;i=0;j++; }//If so increment Plane size
@@ -72,6 +70,9 @@ void GameManager::init() {
     mapList->shrink_to_fit();
     nodeList->shrink_to_fit();
     idMap = drawMap(planeSize, mapList, idTextureBuilding);
+
+    pathfinding = new aStar(*nodeList,planeSize);
+
     /*for (Node n: *nodeList) {
         std::cout << "Node " << k << " = " << n.getX() << " , " << n.getY() << std::endl;
         k++;
@@ -93,8 +94,14 @@ void GameManager::loop() {
         }
         handleEvent();
         projectileManager->update(collisionManager, player, enemy);
+
+            pathfinding->FindPath(enemy->getPosition(), player->getPosition());
         
         draw();
+        for (Node* n: pathfinding->foundPath) {
+        std::cout << "Node = " << n->getX() << " , " << n->getY() << std::endl;
+
+    }
         //mise a jour de l'ecran
         SDL_Delay(5);
     }
@@ -115,7 +122,7 @@ void GameManager::draw() {
     if (enemy->isAlive()) {
         enemy->drawEntity();
     }
-    /*for(Node n : *nodeList){
+    for(Node n : *nodeList){
         glPushMatrix();
         if(!n.isWalkable()){
             glColor3ub(255,0,0);
@@ -128,7 +135,17 @@ void GameManager::draw() {
             drawCube();}
         
         glPopMatrix();
-    }*/
+    }
+    if(!pathfinding->foundPath.empty()) {
+        for (Node* n : pathfinding->foundPath) {
+            glPushMatrix();
+            glColor3ub(0, 0, 0);
+            glTranslatef(n->getX() + .5, 1, n->getY() + .5);
+            glScalef(0.4, 0.4, 0.4);
+            drawCube();
+            glPopMatrix();
+        }
+    }
     glFlush();
     SDL_GL_SwapWindow(win);
 }
@@ -172,8 +189,8 @@ void GameManager::handleEvent() {
         }
     }   // W A S D Events
     
-    if (state[SDL_SCANCODE_LSHIFT]) { //Temporary enemy spawner
-        enemy = new Enemy(glm::vec3(20, 0, 3));
+    if (state[SDL_SCANCODE_LSHIFT]&& event.type == SDL_KEYDOWN) { //Temporary enemy spawner
+       // enemy = new Enemy(glm::vec3(20, 0, 3));
     }
     if(state[SDL_SCANCODE_LEFT])
     {

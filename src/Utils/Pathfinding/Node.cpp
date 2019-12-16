@@ -3,7 +3,7 @@
 //
 
 #include "Node.h"
-
+Node* Node::parent = new Node();
 int Node::getX() const {
     return x;
 }
@@ -19,14 +19,6 @@ int Node::getY() const {
 
 void Node::setY(int y) {
     Node::y = y;
-}
-
-int Node::getFCost() const {
-    return fCost;
-}
-
-void Node::setFCost(int fCost) {
-    Node::fCost = fCost;
 }
 
 int Node::getGCost() const {
@@ -48,6 +40,8 @@ void Node::setHCost(int hCost) {
 Node::Node(int x, int y) {
     setX(x);
     setY(y);
+    setGCost(0);
+    setHCost(0);
 }
 
 bool Node::isWalkable() const {
@@ -57,5 +51,32 @@ bool Node::isWalkable() const {
 void Node::setWalkable(bool walkable) {
     Node::walkable = walkable;
 }
+
+Node::Node() {
+
+}
+
+int Node::fCost() {
+    return gCost+hCost;
+}
+
+int Node::getId() const {
+    return id;
+}
+
+void Node::setId(int id) {
+    Node::id = id;
+}
+
+Node *Node::getParent() {
+    return parent;
+}
+
+void Node::setParent(Node *p) {
+    Node::parent = p;
+}
+
+
+
 
 

@@ -1,5 +1,5 @@
 //
-// Created by jean- on 2019-11-28.
+// Created by jean&seb on 2019-11-28.
 //
 
 #ifndef MONPROJETSDL_GAMEMANAGER_H
@@ -10,6 +10,7 @@
 #include "../Classes/Camera.h"
 #include "../Classes/Enemy.h"
 #include "../Utils/Pathfinding/Node.h"
+#include "../Utils/Pathfinding/aStar.h"
 
 
 class GameManager {
@@ -32,6 +33,7 @@ private:
     int planeSize=1;
     std::vector<char> *mapList;
     std::vector<Node> *nodeList;
+    aStar *pathfinding;
     std::string mapSelected;
     Player *player;
     Enemy *enemy;
