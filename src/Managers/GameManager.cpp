@@ -96,9 +96,12 @@ void GameManager::loop() {
         }
         handleEvent();
         projectileManager->update(collisionManager, player, enemy);
-        if(enemy->isAlive()) {
-            enemy->movement(player->getPosition());
+
+        if(!a) {
+            //pathfinding->FindPath(enemy->getPosition(), player->getPosition());
+        a=true;
         }
+        enemy->movement(player->getPosition());
         draw();
         //mise a jour de l'ecran
         SDL_Delay(5);
@@ -111,7 +114,6 @@ void GameManager::clean() {
 }
 
 void GameManager::draw() {
-    
     glPushMatrix();
     drawPlane(planeSize, idTextureGrass);
     glCallList(idMap);
@@ -120,19 +122,33 @@ void GameManager::draw() {
     player->drawEntity();
     if (enemy->isAlive()) {
         enemy->drawEntity();
-        if(enemy->getPathFinding()->foundPath.size() != 0) {
-            for (Node n : enemy->getPathFinding()->foundPath) {
-            
-                glPushMatrix();
-                glColor3ub(0, 0, 0);
-                glTranslatef(n.getX(), 0.4, n.getY());
-                glScalef(0.1,0.1, 0.1);
-                drawCube();
-                glPopMatrix();
-            }
+    }
+    for(Node n : *nodeList){
+        glPushMatrix();
+        if(!n.isWalkable()){
+            glColor3ub(255,0,0);
+            glTranslatef(n.getX(),.7,n.getY());
+            glScalef(0.4,0.4,0.4);
+            drawCube();
+        }else{glColor3ub(100,100,100);
+            glTranslatef(n.getX(),-0.3,n.getY());
+            glScalef(0.4,0.4,0.4);
+            drawCube();}
+
+        glPopMatrix();
+    }
+    if(enemy->getPathFinding()->foundPath.size() != 0) {
+        for (Node n : enemy->getPathFinding()->foundPath) {
+
+            glPushMatrix();
+            glColor3ub(0, 0, 0);
+            glTranslatef(n.getX(), 0.4, n.getY());
+            glScalef(0.1,0.1, 0.1);
+            drawCube();
+            glPopMatrix();
         }
     }
-    
+
     glFlush();
     SDL_GL_SwapWindow(win);
 }
@@ -146,7 +162,7 @@ void GameManager::handleEvent() {
     if (state[SDL_SCANCODE_ESCAPE]) {
         isRunning = false;//Bring up Menu >????
     }
-    
+
     if (state[SDL_SCANCODE_W]) {
             player->movement(true, collisionManager);
     }
@@ -159,9 +175,9 @@ void GameManager::handleEvent() {
     if (state[SDL_SCANCODE_D]) {
             player->setRotation(player->getRotation() - 1);
     }   // W A S D Events
-    
-    if (state[SDL_SCANCODE_P]&& event.type == SDL_KEYDOWN) { //Temporary enemy spawner
 
+    if (state[SDL_SCANCODE_LSHIFT]&& event.type == SDL_KEYDOWN) { //Temporary enemy spawner
+       // enemy = new Enemy(glm::vec3(20, 0, 3));
         //pathfinding->FindPath(enemy->getPosition(), player->getPosition());
     
     }

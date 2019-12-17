@@ -18,27 +18,61 @@ void Enemy::movement(glm::vec3 playerPos) {
         if ((timeLastCheck + timeBetweenCheck) < SDL_GetTicks()) {
             pathFinding->FindPath(position, playerPos);
             timeLastCheck = SDL_GetTicks();
-            glm::vec3 destination(pathFinding->getClosedSet()->at(1).getX() - pathFinding->getClosedSet()->at(0).getX(),playerPos.y, pathFinding->getClosedSet()->at(1).getY() - pathFinding->getClosedSet()->at(0).getY());
-            glm::vec3 enemypos( pathFinding->getClosedSet()->at(1).getX() - pathFinding->getClosedSet()->at(0).getX(),playerPos.y,pathFinding->getClosedSet()->at(0).getY());
-            float normalA = sqrt(pow(destination.x,2) + pow(destination.y,2) + pow(destination.z,2));
+            //glm::vec3 destination(pathFinding->foundPath.at(0).getX() - pathFinding->foundPath.at(1).getX(),playerPos.y, pathFinding->foundPath.at(0).getY() - pathFinding->foundPath.at(1).getY());
+            //glm::vec3 enemypos( pathFinding->foundPath.at(1).getX() - pathFinding->foundPath.at(0).getX(),playerPos.y,pathFinding->foundPath.at(0).getY());
+            /*if(destination.x == 1 && destination.z == 0){
+                rotation = 270;
+            }
+            else if(destination.x == -1 && destination.z == 0){
+                rotation = 90;
+            }
+            else if(destination.x == 1 && destination.z == 1){
+                rotation = 180 + (45 * 180.0 / M_PI);
+            }
+            else if(destination.x == 0 && destination.z == 1){
+                rotation = 90 * 180.0 / M_PI;
+            }
+            else if(destination.x == -1 && destination.z == 1){
+                rotation = 90 + ( 45 * 180.0 / M_PI);
+            }
+            else if(destination.x == 1 && destination.z == -1){
+                rotation = 270 + (45 * 180 / M_PI);
+            }
+            else if(destination.x == 0 && destination.z == -1){
+                rotation = 0 * 180.0 / M_PI;
+            }
+            else if(destination.x == -1 && destination.z == -1){
+                rotation = 45 * 180.0 / M_PI;
+            }*/
+            /*float normalA = sqrt(pow(destination.x,2) + pow(destination.y,2) + pow(destination.z,2));
             float normalB = sqrt(pow(enemypos.x,2) + pow(enemypos.y,2) + pow(enemypos.z,2));
             float ab = (enemypos.x * destination.x) + (enemypos.y * destination.y) + (enemypos.z * destination.z);
             float tempA = ab / (normalA * normalB);
             float angle = acos(tempA) * 180.0 / M_PI;
-            rotation = angle;
+            if(pathFinding->foundPath.at(1).getX() - pathFinding->foundPath.at(0).getX() < 0)
+                rotation = -angle ;
+            else
+                rotation = angle ;*/
             std::cout << "bob";
-
         }
     }
+    if(pathFinding->foundPath.size() != 0){
+
+        //position.x = position.x + 0.01 * cos(rotation );
+        //position.z = position.z - 0.01 * sin(rotation);
+    }
+
 
 }
 
 void Enemy::drawEntity() {
     glPushMatrix();
-    
-    glTranslatef(position.x, position.y, position.z);
+
+    glTranslatef(position.x, position.y + 0.05, position.z);
+    drawAxe();
     glRotatef(rotation, 0, 1, 0);
-    glRotatef(90,0,1,0);
+    //glRotatef(90,0,1,0);
+    //drawAxe();
     glScalef(0.2f,0.2f,0.2f);
     glColor3f(0,0,1);
     glCallList(idBaseThank);

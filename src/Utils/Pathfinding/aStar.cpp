@@ -15,7 +15,7 @@ aStar::aStar(std::vector<Node> nMap, int planeSize) {
 }
 
 void aStar::FindPath(glm::vec3 startPos, glm::vec3 targetPos) {
-    
+    foundPath.clear();
     Node startNode;
     Node targetNode;
     for (Node n : nodeMap) {           //Find Nodes corresponding to Start and Target Position

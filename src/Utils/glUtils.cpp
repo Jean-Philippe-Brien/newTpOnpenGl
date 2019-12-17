@@ -305,7 +305,7 @@ void drawRect(int length, int dir) {
 //Draws an Axe (Unity x,y,z) at (0,0)
 void drawAxe() {
     glPushMatrix();
-//    glScalef(1,3,3);
+    glScalef(3,3,3);
     glBegin(GL_LINES);
     //axe X
     glColor3f(1, 0, 0);
