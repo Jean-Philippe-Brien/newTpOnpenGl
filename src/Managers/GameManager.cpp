@@ -111,6 +111,7 @@ void GameManager::clean() {
 }
 
 void GameManager::draw() {
+    
     glPushMatrix();
     drawPlane(planeSize, idTextureGrass);
     glCallList(idMap);
