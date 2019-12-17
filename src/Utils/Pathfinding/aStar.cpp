@@ -18,9 +18,9 @@ void aStar::FindPath(glm::vec3 startPos, glm::vec3 targetPos) {
     Node startNode;
     Node targetNode;
     for (Node n : nodeMap)  {           //Find Nodes corresponding to Start and Target Position
-        if (n.getX() == startPos.x && n.getY() == startPos.z) {
+        if (n.getX() == (int)startPos.x && n.getY() == (int)startPos.z) {
             startNode = n;
-        } else if (n.getX() == targetPos.x && n.getY() == targetPos.z) {
+        } else if (n.getX() == (int)targetPos.x && n.getY() == (int)targetPos.z) {
             targetNode = n;
         }
     }
@@ -47,7 +47,6 @@ void aStar::FindPath(glm::vec3 startPos, glm::vec3 targetPos) {
         closedSet->push_back(node);
         
         if (node.getId() == targetNode.getId()) {
-            //RetracePath(startNode, targetNode);
             return;
         }
         std::vector<Node> neighbourNodes = getNeighbours(&node);

@@ -130,11 +130,11 @@ void GameManager::draw() {
         glPushMatrix();
         if(!n.isWalkable()){
             glColor3ub(255,0,0);
-            glTranslatef(n.getX()+.5,.7,n.getY()+.5);
+            glTranslatef(n.getX(),.7,n.getY());
             glScalef(0.4,0.4,0.4);
             drawCube();
         }else{glColor3ub(100,100,100);
-            glTranslatef(n.getX()+.5,-0.3,n.getY()+.5);
+            glTranslatef(n.getX(),-0.3,n.getY());
             glScalef(0.4,0.4,0.4);
             drawCube();}
         
@@ -144,7 +144,7 @@ void GameManager::draw() {
         for (Node n : *pathfinding->closedSet) {
             glPushMatrix();
             glColor3ub(0, 0, 0);
-            glTranslatef(n.getX() + .5, 1, n.getY() + .5);
+            glTranslatef(n.getX(), 1, n.getY());
             glScalef(0.2, 0.2, 0.2);
             drawCube();
             glPopMatrix();
@@ -195,6 +195,8 @@ void GameManager::handleEvent() {
     
     if (state[SDL_SCANCODE_LSHIFT]&& event.type == SDL_KEYDOWN) { //Temporary enemy spawner
        // enemy = new Enemy(glm::vec3(20, 0, 3));
+        pathfinding->FindPath(enemy->getPosition(), player->getPosition());
+    
     }
     if(state[SDL_SCANCODE_LEFT])
     {
