@@ -16,6 +16,7 @@ private:
     float timeBetweenCheck = 1000;
     float fireRate = 200;
     float lastFire = 0;
+    float rotation = 0;
     GLuint idBaseThank = 0;
     GLuint idBaseCanon = 0;
 public:

@@ -18,7 +18,15 @@ void Enemy::movement(glm::vec3 playerPos) {
         if ((timeLastCheck + timeBetweenCheck) < SDL_GetTicks()) {
             pathFinding->FindPath(position, playerPos);
             timeLastCheck = SDL_GetTicks();
-            glm::vec3 destination(pathFinding->getClosedSet()->at(1).getX(),playerPos.y, pathFinding->getClosedSet()->at(1).getY());
+            glm::vec3 destination(pathFinding->getClosedSet()->at(1).getX() - pathFinding->getClosedSet()->at(0).getX(),playerPos.y, pathFinding->getClosedSet()->at(1).getY() - pathFinding->getClosedSet()->at(0).getY());
+            glm::vec3 enemypos( pathFinding->getClosedSet()->at(1).getX() - pathFinding->getClosedSet()->at(0).getX(),playerPos.y,pathFinding->getClosedSet()->at(0).getY());
+            float normalA = sqrt(pow(destination.x,2) + pow(destination.y,2) + pow(destination.z,2));
+            float normalB = sqrt(pow(enemypos.x,2) + pow(enemypos.y,2) + pow(enemypos.z,2));
+            float ab = (enemypos.x * destination.x) + (enemypos.y * destination.y) + (enemypos.z * destination.z);
+            float tempA = ab / (normalA * normalB);
+            float angle = acos(tempA) * 180.0 / M_PI;
+            rotation = angle;
+            std::cout << "bob";
 
         }
     }
@@ -29,7 +37,6 @@ void Enemy::drawEntity() {
     glPushMatrix();
     
     glTranslatef(position.x, position.y, position.z);
-    
     glRotatef(rotation, 0, 1, 0);
     glRotatef(90,0,1,0);
     glScalef(0.2f,0.2f,0.2f);
