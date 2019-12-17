@@ -13,7 +13,7 @@ class Enemy : public Entity {
 private:
     aStar* pathFinding;
     float timeLastCheck = 0;
-    float timeBetweenCheck = 100;
+    float timeBetweenCheck = 50;
     float fireRate = 200;
     float lastFire = 0;
     GLuint idBaseThank = 0;

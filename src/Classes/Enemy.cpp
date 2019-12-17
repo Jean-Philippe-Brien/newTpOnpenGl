@@ -18,9 +18,9 @@ void Enemy::movement(glm::vec3 playerPos) {
         if ((timeLastCheck + timeBetweenCheck) < SDL_GetTicks()) {
             pathFinding->FindPath(position, playerPos);
             timeLastCheck = SDL_GetTicks();
-            //glm::vec3 destination(pathFinding->foundPath.at(0).getX() - pathFinding->foundPath.at(1).getX(),playerPos.y, pathFinding->foundPath.at(0).getY() - pathFinding->foundPath.at(1).getY());
+            glm::vec3 destination(pathFinding->foundPath.at(0).getX() - pathFinding->foundPath.at(1).getX(),playerPos.y, pathFinding->foundPath.at(0).getY() - pathFinding->foundPath.at(1).getY());
             //glm::vec3 enemypos( pathFinding->foundPath.at(1).getX() - pathFinding->foundPath.at(0).getX(),playerPos.y,pathFinding->foundPath.at(0).getY());
-            /*if(destination.x == 1 && destination.z == 0){
+            if(destination.x == 1 && destination.z == 0){
                 rotation = 270;
             }
             else if(destination.x == -1 && destination.z == 0){
@@ -43,7 +43,12 @@ void Enemy::movement(glm::vec3 playerPos) {
             }
             else if(destination.x == -1 && destination.z == -1){
                 rotation = 45 * 180.0 / M_PI;
-            }*/
+            }
+            if(pathFinding->foundPath.size() != 0){
+
+                position.x = position.x - 0.05 * cos(rotation );
+                position.z = position.z + 0.05 * sin(rotation);
+            }
             /*float normalA = sqrt(pow(destination.x,2) + pow(destination.y,2) + pow(destination.z,2));
             float normalB = sqrt(pow(enemypos.x,2) + pow(enemypos.y,2) + pow(enemypos.z,2));
             float ab = (enemypos.x * destination.x) + (enemypos.y * destination.y) + (enemypos.z * destination.z);
@@ -52,15 +57,11 @@ void Enemy::movement(glm::vec3 playerPos) {
             if(pathFinding->foundPath.at(1).getX() - pathFinding->foundPath.at(0).getX() < 0)
                 rotation = -angle ;
             else
-                rotation = angle ;*/
-            std::cout << "bob";
+                rotation = angle ;
+            std::cout << "bob";*/
         }
     }
-    if(pathFinding->foundPath.size() != 0){
 
-        //position.x = position.x + 0.01 * cos(rotation );
-        //position.z = position.z - 0.01 * sin(rotation);
-    }
 
 
 }
