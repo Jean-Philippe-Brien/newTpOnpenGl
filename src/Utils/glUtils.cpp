@@ -231,7 +231,7 @@ void drawMap(float planeSize, std::vector<char>* mapData) {
                 for (int h = 0; h < ((int)c - 48); h++) {
                     glPushMatrix();
                     glColor3ub(80, 80, 80);
-                    glTranslatef(k + .5, h+.5, j + .5);
+                    glTranslatef(k , h, j );
                     glScalef(0.5, 0.5, 0.5);
                     drawCube();
                     glPopMatrix();
@@ -240,7 +240,7 @@ void drawMap(float planeSize, std::vector<char>* mapData) {
             case '5':
                 glPushMatrix();
                 glColor3ub(100, 100, 100);
-                glTranslatef(k + .5, 0.5, j + .5);
+                glTranslatef(k, 0.5, j);
                 glScalef(0.5, 0.5, 0.1);
                 drawCube();
                 glPopMatrix();

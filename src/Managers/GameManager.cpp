@@ -99,10 +99,7 @@ void GameManager::loop() {
         a=true;
         }
         draw();
-        for (Node n: *pathfinding->closedSet) {
-        std::cout << "Node = " << n.getX() << " , " << n.getY() << std::endl;
-
-    }
+        
         //mise a jour de l'ecran
         SDL_Delay(5);
     }
@@ -135,11 +132,11 @@ void GameManager::draw() {
         glPopMatrix();
     }
 
-        for (Node n : *pathfinding->closedSet) {
+        for (Node n : pathfinding->foundPath) {
             glPushMatrix();
             glColor3ub(0, 0, 0);
-            glTranslatef(n.getX(), 1, n.getY());
-            glScalef(0.2, 0.2, 0.2);
+            glTranslatef(n.getX(), 0.4, n.getY());
+            glScalef(0.1,0.1, 0.1);
             drawCube();
             glPopMatrix();
         }
