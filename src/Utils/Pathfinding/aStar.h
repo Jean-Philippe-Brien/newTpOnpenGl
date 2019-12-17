@@ -11,8 +11,7 @@
 class aStar {
 public:
     std::vector<Node> nodeMap;
-    std::vector<Node*> foundPath;
-    std::vector<Node>::iterator it;
+    std::vector<Node> foundPath;
     int parentNodeNumber;
     std::vector<Node> *openSet;
     std::vector<Node> *closedSet;
@@ -25,7 +24,7 @@ public:
     std::vector<Node> getNeighbours(Node* node);
     int GetDistance(Node nodeA,Node nodeB);
     bool Contains(std::vector<Node> nodeList,Node node);
-    void RetracePath(Node* startNode,Node* endNode);
+    void RetracePath(Node startNode,Node endNode);
     bool isPathFound(std::vector<Node*> path);
     
     

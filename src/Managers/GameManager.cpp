@@ -42,7 +42,7 @@ void GameManager::init() {
     idTextureGrass = loadTexture("../assets/grass.jpg", true);
     projectileManager = new ProjectileManager();
     enemy = new Enemy(glm::vec3(20, 0, 3));
-    player = new Player(glm::vec3(15, 0, 3));
+    player = new Player(glm::vec3(4, 0, 8));
     followCam = new Camera(player);
     mapList = new std::vector<char>();
     nodeList = new std::vector<Node>();
@@ -52,13 +52,15 @@ void GameManager::init() {
     
     if (file) {
         char c;
+        int cpt=0;
         while (file.get(c)) {
             if (!isspace(c)) {//Check if this char is a '/n'
                 mapList->push_back(c);
                 Node *n = new Node(i, j);
                 n->setWalkable(c == '0');
-                n->setId(i);
+                n->setId(cpt);
                 nodeList->push_back(*n);
+                cpt++;
                 i++;
             } else { planeSize++;i=0;j++; }//If so increment Plane size
         }
@@ -80,7 +82,7 @@ void GameManager::init() {
 }
 
 void GameManager::loop() {
-    
+    bool a=false;
     while (isRunning) {
         timeStartLoop = SDL_GetTicks();
         clean();
@@ -95,11 +97,13 @@ void GameManager::loop() {
         handleEvent();
         projectileManager->update(collisionManager, player, enemy);
 
+        if(!a) {
             pathfinding->FindPath(enemy->getPosition(), player->getPosition());
-        
+        a=true;
+        }
         draw();
-        for (Node* n: pathfinding->foundPath) {
-        std::cout << "Node = " << n->getX() << " , " << n->getY() << std::endl;
+        for (Node n: *pathfinding->closedSet) {
+        std::cout << "Node = " << n.getX() << " , " << n.getY() << std::endl;
 
     }
         //mise a jour de l'ecran
@@ -136,16 +140,16 @@ void GameManager::draw() {
         
         glPopMatrix();
     }
-    if(!pathfinding->foundPath.empty()) {
-        for (Node* n : pathfinding->foundPath) {
+
+        for (Node n : *pathfinding->closedSet) {
             glPushMatrix();
             glColor3ub(0, 0, 0);
-            glTranslatef(n->getX() + .5, 1, n->getY() + .5);
-            glScalef(0.4, 0.4, 0.4);
+            glTranslatef(n.getX() + .5, 1, n.getY() + .5);
+            glScalef(0.2, 0.2, 0.2);
             drawCube();
             glPopMatrix();
         }
-    }
+    
     glFlush();
     SDL_GL_SwapWindow(win);
 }

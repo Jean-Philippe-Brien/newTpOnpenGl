@@ -13,8 +13,9 @@ private:
     int gCost,hCost;
     bool walkable;
     int id;
-    static Node* parent;
+    int parentId;
 public:
+
     bool isWalkable() const;
     
     void setWalkable(bool walkable);
@@ -22,7 +23,9 @@ public:
     int fCost();
     
     
-
+    int getParentId() const;
+    
+    void setParentId(int parentId);
     
     Node();
     Node(int x,int y);
@@ -46,10 +49,7 @@ public:
     int getHCost() const;
     
     void setHCost(int hCost);
-    
-    static Node *getParent();
-    
-    static void setParent(Node *parent);
+
 };
 
 
