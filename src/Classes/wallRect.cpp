@@ -11,7 +11,7 @@ wallRect::wallRect(std::vector<char>* map, int planeSize) {
     for (auto c : *map) {
         //std::cout << ((int)c - 48) << std::endl;
         if(c != '0') {
-            glm::vec3 pos(k + .5, 0, j + .5);
+            glm::vec3 pos(k, 0, j);
             addCube(pos);
         }
 

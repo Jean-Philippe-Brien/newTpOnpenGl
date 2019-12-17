@@ -353,7 +353,7 @@ int drawMap(float planeSize, std::vector<char>* mapData, GLuint idTexture) {
 
                     glPushMatrix();
                     glColor3ub(80, 80, 80);
-                    glTranslatef(k + .5, h+.5, j + .5);
+                    glTranslatef(k , h, j );
                     glScalef(0.5, 0.5, 0.5);
                     drawCubeMap(rand() % 5,rand() % 7,idTexture);
                     glPopMatrix();
@@ -363,7 +363,7 @@ int drawMap(float planeSize, std::vector<char>* mapData, GLuint idTexture) {
             case '7':
                 glPushMatrix();
                 glColor3ub(100, 100, 100);
-                glTranslatef(k + .5, 0.5, j + .5);
+                glTranslatef(k, 0.5, j);
                 glScalef(0.5, 0.5, 0.1);
                 drawCube();
                 glPopMatrix();
