@@ -46,8 +46,8 @@ void Enemy::movement(glm::vec3 playerPos) {
             }
             if(pathFinding->foundPath.size() != 0){
 
-                position.x = position.x - 0.05 * cos(rotation );
-                position.z = position.z + 0.05 * sin(rotation);
+                position.x = position.x - 0.1 * cos(rotation );
+                position.z = position.z + 0.1 * sin(rotation);
             }
             /*float normalA = sqrt(pow(destination.x,2) + pow(destination.y,2) + pow(destination.z,2));
             float normalB = sqrt(pow(enemypos.x,2) + pow(enemypos.y,2) + pow(enemypos.z,2));

@@ -29,7 +29,7 @@ void GameManager::init() {
     glEnable(GL_LIGHT0);
 
     glEnable(GL_TEXTURE_2D);
-    //glEnable(GL_COLOR_MATERIAL);
+    glEnable(GL_COLOR_MATERIAL);
     glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
