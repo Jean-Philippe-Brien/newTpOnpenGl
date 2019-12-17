@@ -3,7 +3,7 @@
 //
 
 #include "Node.h"
-Node* Node::parent = new Node();
+
 int Node::getX() const {
     return x;
 }
@@ -68,13 +68,15 @@ void Node::setId(int id) {
     Node::id = id;
 }
 
-Node *Node::getParent() {
-    return parent;
+int Node::getParentId() const {
+    return parentId;
 }
 
-void Node::setParent(Node *p) {
-    Node::parent = p;
+void Node::setParentId(int parentId) {
+    Node::parentId = parentId;
 }
+
+
 
 
 

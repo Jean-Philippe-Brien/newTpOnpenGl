@@ -14,11 +14,10 @@ aStar::aStar(std::vector<Node> nMap, int planeSize) {
 }
 
 void aStar::FindPath(glm::vec3 startPos, glm::vec3 targetPos) {
-    bool REMOVEME = false;
     
     Node startNode;
     Node targetNode;
-    for (Node n : nodeMap) {//Find Nodes corresponding to Start and Target Position
+    for (Node n : nodeMap)  {           //Find Nodes corresponding to Start and Target Position
         if (n.getX() == startPos.x && n.getY() == startPos.z) {
             startNode = n;
         } else if (n.getX() == targetPos.x && n.getY() == targetPos.z) {
@@ -33,38 +32,38 @@ void aStar::FindPath(glm::vec3 startPos, glm::vec3 targetPos) {
     openSet->push_back(startNode);
     std::cout << openSet->size() << std::endl;
     while (!openSet->empty()) {
-        Node *currentNode = &openSet->front();
+        Node node = openSet->front();
         int savedI;
         for (int i = 1; i < openSet->size(); i++) {
-            if (openSet->at(i).fCost() < currentNode->fCost() ||
-                (openSet->at(i).fCost() == currentNode->fCost() &&
-                 openSet->at(i).getHCost() < currentNode->getHCost())) {
-                currentNode = &openSet->at(i);
-                savedI = i;
+            if (openSet->at(i).fCost() < node.fCost() || openSet->at(i).fCost() == node.fCost())  {
+                if(openSet->at(i).getHCost() < node.getHCost()){
+                    node = openSet->at(i);
+                    savedI = i;
+                }
             }
         }
         
-        openSet->erase(openSet->begin() + savedI+1);
-        closedSet->push_back(*currentNode);
+        openSet->erase(openSet->begin() + savedI);
+        closedSet->push_back(node);
         
-        if (currentNode->getId() == targetNode.getId()) {
-            RetracePath(&startNode, &targetNode);
+        if (node.getId() == targetNode.getId()) {
+            //RetracePath(startNode, targetNode);
             return;
         }
-        
-        for (Node neighbour : getNeighbours(currentNode)) {
+        std::vector<Node> neighbourNodes = getNeighbours(&node);
+        for (Node neighbour : neighbourNodes) {
             
             if (!neighbour.isWalkable() || Contains(*closedSet, neighbour)) {
                 continue;
             }
             
             
-            int newMovementCost = currentNode->getGCost() + GetDistance(*currentNode, neighbour);
+            int newMovementCost = node.getGCost() + GetDistance(node, neighbour);
             if (newMovementCost < neighbour.getGCost() || !Contains(*openSet, neighbour)) {
                 neighbour.setGCost(newMovementCost);
                 neighbour.setHCost(GetDistance(neighbour, targetNode));
                 neighbour.fCost();
-                Node::setParent(currentNode);
+                neighbour.setParentId(node.getId());
             }
             if (!Contains(*openSet, neighbour)) {
                 openSet->push_back(neighbour);
@@ -78,18 +77,18 @@ void aStar::FindPath(glm::vec3 startPos, glm::vec3 targetPos) {
 std::vector<Node> aStar::getNeighbours(Node *node) {
     std::vector<Node> neighbourList;
     std::vector<Node> sortedList;
-    for (int i = nodeMap.at(node->getId()).getId() + 1; i < (nodeMap.at(node->getId()).getId() + planeSize+2); i++) {
-        sortedList.push_back(nodeMap.at(i));
-    }
-    if (node->getId() < planeSize) {
-        for(int i= node->getId() -1; i>(planeSize-node->getId());i--){
-            sortedList.push_back(nodeMap.at(i));
-        }
-    } else {
-        for (int i = nodeMap.at(node->getId()).getId() - 1; i > (nodeMap.at(node->getId()).getId() - planeSize); i--) {
-            sortedList.push_back(nodeMap.at(i));
-        }
-    }
+    
+        sortedList.push_back(nodeMap.at(node->getId() - 1));
+        sortedList.push_back(nodeMap.at(node->getId() - planeSize - 1));
+        sortedList.push_back(nodeMap.at(node->getId() - planeSize));
+        sortedList.push_back(nodeMap.at(node->getId() - planeSize + 1));
+        sortedList.push_back(nodeMap.at(node->getId() + 1));
+        sortedList.push_back(nodeMap.at(node->getId() + planeSize + 1));
+        sortedList.push_back(nodeMap.at(node->getId() + planeSize));
+        sortedList.push_back(nodeMap.at(node->getId() + planeSize - 1));
+    
+    
+  
     sortedList.shrink_to_fit();
     
     for (int x = -1; x <= 1; x++) {
@@ -122,13 +121,14 @@ bool aStar::Contains(std::vector<Node> nodeList, Node node) {
     return false;
 }
 
-void aStar::RetracePath(Node *startNode, Node *endNode) {
-    std::vector<Node *> path;
-    Node *currentNode = endNode;
+void aStar::RetracePath(Node startNode, Node endNode) {
+    std::vector<Node > path;
+    Node currentNode = endNode;
     
-    while (currentNode->getId() != startNode->getId()) {
+    while (currentNode.getId() != startNode.getId()) {
         path.push_back(currentNode);
-        currentNode = Node::getParent();
+        Node nextNode = nodeMap.at(currentNode.getParentId());
+        currentNode = nextNode;
     }
     
     std::reverse(path.begin(), path.end());
