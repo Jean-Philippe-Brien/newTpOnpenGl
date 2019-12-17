@@ -7,28 +7,32 @@
 
 
 #include "Entity.h"
-
+#include "../Utils/Pathfinding/aStar.h"
 class Enemy : public Entity {
 
 private:
+    aStar* pathFinding;
+    float timeLastCheck = 0;
+    float timeBetweenCheck = 1000;
     float fireRate = 200;
     float lastFire = 0;
     GLuint idBaseThank = 0;
     GLuint idBaseCanon = 0;
 public:
-    explicit Enemy(const glm::vec3 &position);
+    explicit Enemy(const glm::vec3 &position, std::vector<Node> nMap, int planeSize);
     
     
     void chase(glm::vec3 pos);
     
     void shoot();
     
-    void movement() override;
+    void movement(glm::vec3 playerPos);
     
     void drawEntity() override;
-    
-    
-    
+
+
+    aStar *getPathFinding() const;
+
     const glm::vec3 &getPos() const override;
     
     float getRotation() const override;

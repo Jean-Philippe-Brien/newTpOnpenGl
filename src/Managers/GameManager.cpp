@@ -41,7 +41,7 @@ void GameManager::init() {
     idTextureBuilding = loadTexture("../assets/textureBuilding.jpg", true);
     idTextureGrass = loadTexture("../assets/grass.jpg", true);
     projectileManager = new ProjectileManager();
-    enemy = new Enemy(glm::vec3(20, 0, 3));
+
     player = new Player(glm::vec3(4, 0, 8));
     followCam = new Camera(player);
     mapList = new std::vector<char>();
@@ -72,8 +72,8 @@ void GameManager::init() {
     mapList->shrink_to_fit();
     nodeList->shrink_to_fit();
     idMap = drawMap(planeSize, mapList, idTextureBuilding);
-
-    pathfinding = new aStar(*nodeList,planeSize);
+    enemy = new Enemy(glm::vec3(20, 0, 3), *nodeList, planeSize);
+    //pathfinding = new aStar(*nodeList,planeSize);
 
     /*for (Node n: *nodeList) {
         std::cout << "Node " << k << " = " << n.getX() << " , " << n.getY() << std::endl;
@@ -88,7 +88,7 @@ void GameManager::loop() {
         clean();
         glLoadIdentity();
         SDL_GetMouseState(&mouseX, &mouseY);
-        
+
         if (!viewChanged) {
             followCam->moveCam(player, 1);
         } else {
@@ -98,14 +98,15 @@ void GameManager::loop() {
         projectileManager->update(collisionManager, player, enemy);
 
         if(!a) {
-            pathfinding->FindPath(enemy->getPosition(), player->getPosition());
+            //pathfinding->FindPath(enemy->getPosition(), player->getPosition());
         a=true;
         }
+        enemy->movement(player->getPosition());
         draw();
-        for (Node n: *pathfinding->closedSet) {
-        std::cout << "Node = " << n.getX() << " , " << n.getY() << std::endl;
+        //for (Node n: *pathfinding->closedSet) {
+        //std::cout << "Node = " << n.getX() << " , " << n.getY() << std::endl;
 
-    }
+    //}
         //mise a jour de l'ecran
         SDL_Delay(5);
     }
@@ -140,8 +141,8 @@ void GameManager::draw() {
         
         glPopMatrix();
     }
-
-        for (Node n : *pathfinding->closedSet) {
+    if(enemy->getPathFinding()->closedSet->size() != 0) {
+        for (Node n : *enemy->getPathFinding()->closedSet) {
             glPushMatrix();
             glColor3ub(0, 0, 0);
             glTranslatef(n.getX(), 1, n.getY());
@@ -149,6 +150,7 @@ void GameManager::draw() {
             drawCube();
             glPopMatrix();
         }
+    }
     
     glFlush();
     SDL_GL_SwapWindow(win);
@@ -165,37 +167,21 @@ void GameManager::handleEvent() {
     }
     
     if (state[SDL_SCANCODE_W]) {
-        if (!viewChanged) {
             player->movement(true, collisionManager);
-        } else {
-            player->movement(true, collisionManager);
-        }
     }
     if (state[SDL_SCANCODE_S]) {
-        if (!viewChanged) {
             player->movement(false, collisionManager);
-        } else {
-            player->movement(false, collisionManager);
-        }
     }
     if (state[SDL_SCANCODE_A]) {
-        if (!viewChanged) {
             player->setRotation(player->getRotation() + 1);
-        } else {
-            player->setRotation(player->getRotation() + 1);
-        }
     }
     if (state[SDL_SCANCODE_D]) {
-        if (!viewChanged) {
             player->setRotation(player->getRotation() - 1);
-        } else {
-            player->setRotation(player->getRotation() - 1);
-        }
     }   // W A S D Events
     
     if (state[SDL_SCANCODE_LSHIFT]&& event.type == SDL_KEYDOWN) { //Temporary enemy spawner
        // enemy = new Enemy(glm::vec3(20, 0, 3));
-        pathfinding->FindPath(enemy->getPosition(), player->getPosition());
+        //pathfinding->FindPath(enemy->getPosition(), player->getPosition());
     
     }
     if(state[SDL_SCANCODE_LEFT])

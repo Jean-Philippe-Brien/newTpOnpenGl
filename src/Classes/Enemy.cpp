@@ -6,14 +6,23 @@
 #include "../Utils/glUtils.h"
 
 
-Enemy::Enemy(const glm::vec3 &position) : Entity(position) {
+Enemy::Enemy(const glm::vec3 &position, std::vector<Node> nMap, int planeSize) : Entity(position) {
     idBaseThank = loadOBJ("assets/thisThank.obj");
     idBaseCanon = loadOBJ("assets/thisThankCanon.obj");
+    pathFinding = new aStar(nMap, planeSize);
     alive=true;
 }
 
-void Enemy::movement() {
-    Entity::movement();
+void Enemy::movement(glm::vec3 playerPos) {
+    if(sqrt(pow(position.x - playerPos.x, 2) + pow(position.z - playerPos.z, 2)) <= 14.0) {
+        if ((timeLastCheck + timeBetweenCheck) < SDL_GetTicks()) {
+            pathFinding->FindPath(position, playerPos);
+            timeLastCheck = SDL_GetTicks();
+            glm::vec3 destination(pathFinding->getClosedSet()->at(1).getX(),playerPos.y, pathFinding->getClosedSet()->at(1).getY());
+            
+        }
+    }
+
 }
 
 void Enemy::drawEntity() {
@@ -55,4 +64,8 @@ float Enemy::getCanonRotation() const {
 }
 void Enemy::setCanonRotation(float canonRotation) {
     Entity::setCanonRotation(canonRotation);
+}
+
+aStar *Enemy::getPathFinding() const {
+    return pathFinding;
 }

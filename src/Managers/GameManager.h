@@ -33,7 +33,7 @@ private:
     int planeSize=1;
     std::vector<char> *mapList;
     std::vector<Node> *nodeList;
-    aStar *pathfinding;
+    //aStar *pathfinding;
     std::string mapSelected;
     Player *player;
     Enemy *enemy;

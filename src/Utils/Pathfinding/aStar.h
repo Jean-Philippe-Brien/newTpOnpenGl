@@ -26,8 +26,10 @@ public:
     bool Contains(std::vector<Node> nodeList,Node node);
     void RetracePath(Node startNode,Node endNode);
     bool isPathFound(std::vector<Node*> path);
-    
-    
+
+    std::vector<Node> *getClosedSet() const;
+
+
 };
 
 

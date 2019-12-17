@@ -11,6 +11,7 @@ aStar::aStar() {
 aStar::aStar(std::vector<Node> nMap, int planeSize) {
     nodeMap = nMap;
     this->planeSize = planeSize;
+    this->closedSet = new std::vector<Node>();
 }
 
 void aStar::FindPath(glm::vec3 startPos, glm::vec3 targetPos) {
@@ -32,6 +33,7 @@ void aStar::FindPath(glm::vec3 startPos, glm::vec3 targetPos) {
     openSet->push_back(startNode);
     std::cout << openSet->size() << std::endl;
     while (!openSet->empty()) {
+
         Node node = openSet->front();
         int savedI;
         for (int i = 1; i < openSet->size(); i++) {
@@ -147,6 +149,10 @@ int aStar::GetDistance(Node nodeA, Node nodeB) {
 bool aStar::isPathFound(std::vector<Node*> path) {
     
     return false;
+}
+
+std::vector<Node> *aStar::getClosedSet() const {
+    return closedSet;
 }
 
 
