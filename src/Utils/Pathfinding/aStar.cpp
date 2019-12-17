@@ -32,9 +32,12 @@ void aStar::FindPath(glm::vec3 startPos, glm::vec3 targetPos) {
     startNode.setParentId(startNode.getId());
     openSet->push_back(startNode);
     
-    std::cout << openSet->size() << std::endl;
+    int loopCpt=0;
     while (!openSet->empty()) {
-
+        if(loopCpt>=planeSize*planeSize){
+            return;
+        }
+        loopCpt++;
         Node node = openSet->front();
         int savedI;
         for (int i = 1; i < openSet->size(); i++) {
@@ -127,8 +130,10 @@ void aStar::RetracePath(Node startNode, Node endNode) {
     std::vector<Node> path;
     Node currentNode = endNode;
     int cpt = 0;
+
     while (currentNode.getId() != startNode.getId()) {
-        
+
+
         if (cpt == 0) {
             int i=0;
             for (Node n : *closedSet) {

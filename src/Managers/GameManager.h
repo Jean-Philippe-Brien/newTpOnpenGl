@@ -26,6 +26,7 @@ private:
     SDL_Event event;
     bool isRunning = true;
     bool viewChanged = false;
+
     SDL_Window *win;
     SDL_GLContext context;
     int width = 800, height = 600;
