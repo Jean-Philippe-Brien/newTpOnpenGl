@@ -17,38 +17,52 @@ void Enemy::movement(glm::vec3 playerPos) {
     if(sqrt(pow(position.x - playerPos.x, 2) + pow(position.z - playerPos.z, 2)) <= 14.0) {
         if ((timeLastCheck + timeBetweenCheck) < SDL_GetTicks()) {
             pathFinding->FindPath(position, playerPos);
-            timeLastCheck = SDL_GetTicks();
-            glm::vec3 destination(pathFinding->foundPath.at(0).getX() - pathFinding->foundPath.at(1).getX(),playerPos.y, pathFinding->foundPath.at(0).getY() - pathFinding->foundPath.at(1).getY());
-            //glm::vec3 enemypos( pathFinding->foundPath.at(1).getX() - pathFinding->foundPath.at(0).getX(),playerPos.y,pathFinding->foundPath.at(0).getY());
-            if(destination.x == 1 && destination.z == 0){
-                rotation = 270;
+            if(pathFinding->foundPath.size() >= 4) {
+                timeLastCheck = SDL_GetTicks();
+                glm::vec3 destination(pathFinding->foundPath.at(0).getX() - pathFinding->foundPath.at(1).getX(),
+                                      playerPos.y,
+                                      pathFinding->foundPath.at(0).getY() - pathFinding->foundPath.at(1).getY());
+                //glm::vec3 enemypos( pathFinding->foundPath.at(1).getX() - pathFinding->foundPath.at(0).getX(),playerPos.y,pathFinding->foundPath.at(0).getY());
+                if (destination.x == 1 && destination.z == 0) {
+                    rotation = 270;
+                } else if (destination.x == -1 && destination.z == 0) {
+                    rotation = 90;
+                }
+                    /*else if(destination.x == 1 && destination.z == 1){
+                        rotation = 180 + (45 * 180.0 / M_PI);
+                    }*/
+                else if (destination.x == 0 && destination.z == 1) {
+                    rotation = 180;
+                }
+                    /*else if(destination.x == -1 && destination.z == 1){
+                        rotation = 90 + ( 45 * 180.0 / M_PI);
+                    }
+                    else if(destination.x == 1 && destination.z == -1){
+                        rotation = 270 + (45 * 180 / M_PI);
+                    }*/
+                else if (destination.x == 0 && destination.z == -1) {
+                    rotation = 0;
+                }
+                /*else if(destination.x == -1 && destination.z == -1){
+                    rotation = 45 * 180.0 / M_PI;
+                }*/
+
+
+                if (rotation == 270) {
+                    position.x -= 0.05;
+                } else if (rotation == 90) {
+                    position.x += 0.05;
+                } else if (rotation == 0) {
+                    position.z += 0.05;
+                } else if (rotation == 180) {
+                    position.z -= 0.05;
+                }
             }
-            else if(destination.x == -1 && destination.z == 0){
-                rotation = 90;
-            }
-            else if(destination.x == 1 && destination.z == 1){
-                rotation = 180 + (45 * 180.0 / M_PI);
-            }
-            else if(destination.x == 0 && destination.z == 1){
-                rotation = 90 * 180.0 / M_PI;
-            }
-            else if(destination.x == -1 && destination.z == 1){
-                rotation = 90 + ( 45 * 180.0 / M_PI);
-            }
-            else if(destination.x == 1 && destination.z == -1){
-                rotation = 270 + (45 * 180 / M_PI);
-            }
-            else if(destination.x == 0 && destination.z == -1){
-                rotation = 0 * 180.0 / M_PI;
-            }
-            else if(destination.x == -1 && destination.z == -1){
-                rotation = 45 * 180.0 / M_PI;
-            }
-            if(pathFinding->foundPath.size() != 0){
+            /*else if(pathFinding->foundPath.size() != 0){
 
                 position.x = position.x - 0.05 * cos(rotation );
                 position.z = position.z + 0.05 * sin(rotation);
-            }
+            }*/
             /*float normalA = sqrt(pow(destination.x,2) + pow(destination.y,2) + pow(destination.z,2));
             float normalB = sqrt(pow(enemypos.x,2) + pow(enemypos.y,2) + pow(enemypos.z,2));
             float ab = (enemypos.x * destination.x) + (enemypos.y * destination.y) + (enemypos.z * destination.z);
@@ -69,7 +83,7 @@ void Enemy::movement(glm::vec3 playerPos) {
 void Enemy::drawEntity() {
     glPushMatrix();
 
-    glTranslatef(position.x, position.y + 0.05, position.z);
+    glTranslatef(position.x + 0.5, position.y + 0.05, position.z);
     drawAxe();
     glRotatef(rotation, 0, 1, 0);
     //glRotatef(90,0,1,0);
