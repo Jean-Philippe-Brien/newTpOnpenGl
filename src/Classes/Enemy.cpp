@@ -19,7 +19,7 @@ void Enemy::movement(glm::vec3 playerPos) {
             pathFinding->FindPath(position, playerPos);
             timeLastCheck = SDL_GetTicks();
             glm::vec3 destination(pathFinding->getClosedSet()->at(1).getX(),playerPos.y, pathFinding->getClosedSet()->at(1).getY());
-            
+
         }
     }
 

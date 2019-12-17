@@ -137,8 +137,8 @@ void GameManager::draw() {
         
         glPopMatrix();
     }
-    if(enemy->getPathFinding()->closedSet->size() != 0) {
-        for (Node n : *enemy->getPathFinding()->closedSet) {
+    if(enemy->getPathFinding()->foundPath.size() != 0) {
+        for (Node n : enemy->getPathFinding()->foundPath) {
 
             glPushMatrix();
             glColor3ub(0, 0, 0);
