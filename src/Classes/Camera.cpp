@@ -8,11 +8,15 @@ void Camera::moveCam(Player *player, int viewType) {
     
     switch (viewType) {
         case 1:
+            float tempX1;
+            float tempY1;
+            tempX1 = player->getPos().x + 4 * cos((player->getRotation() + player->getCanonRotation()) * (M_PI / 180));
+            tempY1 = player->getPos().z - 4 * sin((player->getRotation() + player->getCanonRotation()) * (M_PI / 180));
             camPos.x = player->getPos().x - distance * cos(player->getRotation() * (M_PI / 180));
             camPos.z = player->getPos().z + distance * sin(player->getRotation() * (M_PI / 180));
-            
-            gluLookAt(camPos.x, camPos.y, camPos.z, player->getPos().x,
-                    0, player->getPos().z, 0, 1, 0);
+
+            gluLookAt(camPos.x, 4, camPos.z, tempX1,
+                      0, tempY1, 0, 1, 0);
             break;
         case 2:
             float tempX;

@@ -19,12 +19,18 @@ private:
     int planeSize;
     std::vector<Node> nodeMap;
     std::vector<glm::vec3> startPos;
+    bool afficherPath = false;
 public:
     void init(std::vector<Node> *nodeMap, int planeSize);
     void update(glm::vec3 playerPos, ProjectileManager* pManager);
     void addEnemy();
 
     const std::vector<Enemy *> &getEnemy() const;
+
+    bool isAfficherPath() const;
+
+    void setAfficherPath(bool afficherPath);
+
 };
 
 

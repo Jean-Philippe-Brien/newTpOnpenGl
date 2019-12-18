@@ -31,6 +31,7 @@ void ProjectileManager::update(CollisionManager* cm,Player* player, std::vector<
                     e->setHp(e->getHp() - 20);
                     if (e->getHp() <= 0) {
                         e->setIsAlive(false);
+                        player->setScore(player->getScore() + 100);
                         //delete e;
                     }
                 }

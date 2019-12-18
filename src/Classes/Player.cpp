@@ -7,7 +7,7 @@
 Player::Player(const glm::vec3 pos) : Entity(pos) {
     idBaseThank = loadOBJ("assets/thisThank.obj");
     idBaseCanon = loadOBJ("assets/thisThankCanon.obj");
-    
+    alive = true;
 
 }
 
@@ -108,4 +108,12 @@ void Player::setTempY(float tempY) {
 
 void Player::afficherVieGui() {
 
+}
+
+int Player::getScore() const {
+    return score;
+}
+
+void Player::setScore(int score) {
+    Player::score = score;
 }

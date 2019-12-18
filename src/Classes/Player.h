@@ -14,6 +14,7 @@
 
 class Player: public Entity {
 private:
+    int score = 0;
     int life = 100;
     int maxLife = 100;
     float tempX,tempY;
@@ -26,7 +27,11 @@ public:
     void movement(bool forward, CollisionManager *cm);
     void afficherVieGui();
     bool isHit();
-    
+
+    int getScore() const;
+
+    void setScore(int score);
+
     //Getter / Setter
     void setPos(const glm::vec3 &pos) override;
     const glm::vec3 &getPos() const override;

@@ -95,7 +95,6 @@ void Enemy::drawEntity() {
     glPushMatrix();
 
     glTranslatef(position.x, position.y - 0.05, position.z);
-    drawAxe();
     glRotatef(rotation, 0, 1, 0);
     //glRotatef(90,0,1,0);
     //drawAxe();
