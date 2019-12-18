@@ -4,7 +4,6 @@
 #include "GameManager.h"
 
 
-
 GameManager::GameManager() {
     mapSelected = "basicMap.txt";
 }
@@ -29,7 +28,7 @@ void GameManager::init() {
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_LIGHT_MODEL_AMBIENT);
     glEnable(GL_LIGHT0);
-
+    
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_COLOR_MATERIAL);
     glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
@@ -43,7 +42,7 @@ void GameManager::init() {
     idTextureBuilding = loadTexture("../assets/textureBuilding.jpg", true);
     idTextureGrass = loadTexture("../assets/grass.jpg", true);
     projectileManager = new ProjectileManager();
-
+    
     player = new Player(glm::vec3(4, 0, 8));
     followCam = new Camera(player);
     mapList = new std::vector<char>();
@@ -54,7 +53,7 @@ void GameManager::init() {
     
     if (file) {
         char c;
-        int cpt=0;
+        int cpt = 0;
         while (file.get(c)) {
             if (!isspace(c)) {//Check if this char is a '/n'
                 mapList->push_back(c);
@@ -70,7 +69,11 @@ void GameManager::init() {
                 }*/
                 cpt++;
                 i++;
-            } else { planeSize++;i=0;j++; }//If so increment Plane size
+            } else {
+                planeSize++;
+                i = 0;
+                j++;
+            }//If so increment Plane size
         }
     } else {        //Error if no file is loaded
         std::cout << "no file loaded" << std::endl;
@@ -85,14 +88,14 @@ void GameManager::init() {
 }
 
 void GameManager::loop() {
-    bool a=false;
-    int death=10;
+    bool a = false;
+    int death = 10;
     while (isRunning) {
         timeStartLoop = SDL_GetTicks();
         clean();
         glLoadIdentity();
         SDL_GetMouseState(&mouseX, &mouseY);
-
+        
         if (!viewChanged) {
             followCam->moveCam(player, 1);
         } else {
@@ -101,29 +104,29 @@ void GameManager::loop() {
         handleEvent();
         projectileManager->update(collisionManager, player, enemy);
         
-        if(!enemy->isAlive()) {
-            player->setScore(player->getScore()+100);
-            enemy=new Enemy(glm::vec3(death,0,death-5),*nodeList,planeSize);
-            if(death>35){
-                death=10;
-            }else{death+=5;}
-        }else{enemy->movement(player->getPosition());}
+        if (!enemy->isAlive()) {
+            player->setScore(player->getScore() + 100);
+            enemy = new Enemy(glm::vec3(death, 0, death - 5), *nodeList, planeSize);
+            if (death > 35) {
+                death = 10;
+            } else { death += 5; }
+        } else { enemy->movement(player->getPosition()); }
         
         float deltaX = enemy->getPosition().x - player->getPosition().x;
         float deltaY = enemy->getPosition().y - player->getPosition().y;
         float deltaZ = enemy->getPosition().z - player->getPosition().z;
-        float distance = (float) sqrt(deltaX * deltaX+deltaY*deltaY+deltaZ*deltaZ);
+        float distance = (float) sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
         
-        if(distance<1){
+        if (distance < 1) {
             player->setIsAlive(false);
         }
         
-        if(player->getScore()==500){
-            std::cout <<"Victory" << std::endl;
+        if (player->getScore() == 500) {
+            std::cout << "Victory" << std::endl;
             //Display VICTORY ADD CODE TO RETURN TO MAIN MENU
         }
-        if(!player->isAlive()){
-            std::cout<<" you deeead" << std::endl;
+        if (!player->isAlive()) {
+            std::cout << " you deeead" << std::endl;
             //DISPLAY GAME OVER  ADD CODE TO RETURN TO MAIN MENU
         }
         draw();
@@ -141,11 +144,11 @@ void GameManager::draw() {
     glPushMatrix();
     drawPlane(planeSize, idTextureGrass);
     glCallList(idMap);
-
+    
     glPopMatrix();
-   if(player->isAlive()){
-       player->drawEntity();
-   }
+    if (player->isAlive()) {
+        player->drawEntity();
+    }
     if (enemy->isAlive()) {
         enemy->drawEntity();
     }
@@ -164,18 +167,21 @@ void GameManager::draw() {
         glPopMatrix();
     }*/
     
-    /*if(enemy->getPathFinding()->foundPath.size() != 0) {
-        for (Node n : enemy->getPathFinding()->foundPath) {
-
-            glPushMatrix();
-            glColor3ub(0, 0, 0);
-            glTranslatef(n.getX(), 0.4, n.getY());
-            glScalef(0.1,0.1, 0.1);
-            drawCube();
-            glPopMatrix();
+    if (showPath) {
+        if (enemy->getPathFinding()->foundPath.size() != 0) {
+            for (Node n : enemy->getPathFinding()->foundPath) {
+                
+                glPushMatrix();
+                glColor3ub(0, 0, 0);
+                glTranslatef(n.getX(), 0.4, n.getY());
+                glScalef(0.1, 0.1, 0.1);
+                drawCube();
+                glPopMatrix();
+            }
         }
-    }*///pathfinding gizmos
-
+    }
+    //pathfinding gizmos
+    
     glFlush();
     SDL_GL_SwapWindow(win);
 }
@@ -189,33 +195,33 @@ void GameManager::handleEvent() {
     if (state[SDL_SCANCODE_ESCAPE]) {
         isRunning = false;
     }
-
+    
     if (state[SDL_SCANCODE_W]) {
-            player->movement(true, collisionManager);
+        player->movement(true, collisionManager);
     }
     if (state[SDL_SCANCODE_S]) {
-            player->movement(false, collisionManager);
+        player->movement(false, collisionManager);
     }
     if (state[SDL_SCANCODE_A]) {
-            player->setRotation(player->getRotation() + 1);
+        player->setRotation(player->getRotation() + 1);
     }
     if (state[SDL_SCANCODE_D]) {
-            player->setRotation(player->getRotation() - 1);
+        player->setRotation(player->getRotation() - 1);
     }   // W A S D Events
-
-    if (state[SDL_SCANCODE_LSHIFT]&& event.type == SDL_KEYDOWN) { //Temporary enemy spawner
-       // enemy = new Enemy(glm::vec3(20, 0, 3));
-        //pathfinding->FindPath(enemy->getPosition(), player->getPosition());
     
+    if (state[SDL_SCANCODE_LSHIFT] && event.type == SDL_KEYDOWN) { //Temporary enemy spawner
+        showPath = true;
+        
     }
-    if(state[SDL_SCANCODE_LEFT])
-    {
-            player->setCanonRotation(player->getCanonRotation() + 0.7);
+    if (state[SDL_SCANCODE_LCTRL]) {
+        showPath = false;
     }
-    if(state[SDL_SCANCODE_RIGHT])
-    {
+    if (state[SDL_SCANCODE_LEFT]) {
+        player->setCanonRotation(player->getCanonRotation() + 0.7);
+    }
+    if (state[SDL_SCANCODE_RIGHT]) {
         player->setCanonRotation(player->getCanonRotation() - 0.7);
-
+        
     }
     
     if (state[SDL_SCANCODE_SPACE]) {
