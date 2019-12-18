@@ -13,13 +13,15 @@
 #include <dirent.h>
 enum MenuState{
     firstPage,
-    selectStage
+    selectStage,
+    endPage
 };
 class MenuManager {
 
     std::vector<std::string> mapName;
     std::vector<TextureManager*> mapTexture;
     std::vector<Text*> mapText;
+    Text* gameOver;
     TextureManager* selectMap;
     TextureManager* quit;
     TextureManager* play;
@@ -41,6 +43,8 @@ class MenuManager {
     bool quitGame = false;
 
 public:
+    void setMenuState(MenuState menuState);
+
     bool isQuitGame() const;
 
     const std::string &getLevelSelected() const;
@@ -66,6 +70,10 @@ public:
     void drawMapSelection();
 
     void deleteMeu();
+
+    bool isRunning1() const;
+
+    void setIsRunning(bool isRunning);
 
     void readDirectory();
     ~MenuManager();

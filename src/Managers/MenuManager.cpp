@@ -26,6 +26,8 @@ void MenuManager::init() {
     bg->loadTexture("../assets/Menu/Bg.png", render);
     bg->setScreenRect(0, 0, width, height);
     menuState = firstPage;
+    gameOver = new Text();
+    gameOver->init(render, "../assets/Menu/Long_Shot.ttf", "GAME OVER");
     readDirectory();
 }
 
@@ -60,6 +62,10 @@ void MenuManager::update() {
         }
         else if(menuState == selectStage)
             drawMapSelection();
+        else if(menuState == endPage) {
+            gameOver->setPosition(0, height / 2 - 100,100, 200);
+            gameOver->draw();
+        }
 
 
         //pause dans l image
@@ -169,4 +175,16 @@ const std::string &MenuManager::getLevelSelected() const {
 
 bool MenuManager::isQuitGame() const {
     return quitGame;
+}
+
+void MenuManager::setMenuState(MenuState menuState) {
+    MenuManager::menuState = menuState;
+}
+
+bool MenuManager::isRunning1() const {
+    return isRunning;
+}
+
+void MenuManager::setIsRunning(bool isRunning) {
+    MenuManager::isRunning = isRunning;
 }

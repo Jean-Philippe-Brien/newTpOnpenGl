@@ -325,6 +325,22 @@ void drawAxe() {
     glEnd();
     glPopMatrix();
 }
+void drawLifeBar(glm::vec3 pos, float rotation, float pourcentVie, bool player){
+
+    glPushMatrix();
+    glTranslatef(pos.x, pos.y + 0.7, pos.z);
+    if(player)
+        glRotatef(rotation,0,1,0);
+    else
+        glRotatef(rotation + 90,0,1,0);
+    glScalef(0.03, 0.03,0.2);
+    glColor3f(0,0,0);
+    drawCube();
+    glScalef(1.1, 1.1,( pourcentVie) / 100);
+    glColor3f(1,0,0);
+    drawCube();
+    glPopMatrix();
+}
 //Renders a Plane filled with walls/cubes/towers.               Param planeSize -> Obtained by loading the file using the code in next Method.
 int drawMap(float planeSize, std::vector<char>* mapData, GLuint idTexture) {
     int compteur = 0;

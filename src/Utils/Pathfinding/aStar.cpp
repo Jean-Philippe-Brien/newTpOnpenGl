@@ -34,7 +34,7 @@ void aStar::FindPath(glm::vec3 startPos, glm::vec3 targetPos) {
     
     int loopCpt=0;
     while (!openSet->empty()) {
-        if(loopCpt>=100){
+        if(loopCpt>=500){
             return;
         }
         loopCpt++;

@@ -67,7 +67,12 @@ double Entity::getHp() const {
 }
 
 void Entity::setHp(double hp) {
+
     Entity::hp = hp;
+    if(hp <= 0){
+        alive = false;
+        hp = 0;
+    }
 }
 
 const glm::vec3 &Entity::getPosition() const {

@@ -14,6 +14,8 @@
 
 class Player: public Entity {
 private:
+    int life = 100;
+    int maxLife = 100;
     float tempX,tempY;
     float fireRate = 200;
     float lastFire = 0;
@@ -22,7 +24,7 @@ private:
 public:
     explicit Player(const glm::vec3 pos);
     void movement(bool forward, CollisionManager *cm);
-    
+    void afficherVieGui();
     bool isHit();
     
     //Getter / Setter

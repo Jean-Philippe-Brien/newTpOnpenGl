@@ -41,6 +41,7 @@ void GameManager::init() {
     idTextureBuilding = loadTexture("../assets/textureBuilding.jpg", true);
     idTextureGrass = loadTexture("../assets/grass.jpg", true);
     projectileManager = new ProjectileManager();
+    enemyManager = new EnemyManager();
 
     player = new Player(glm::vec3(4, 0, 8));
     followCam = new Camera(player);
@@ -72,7 +73,9 @@ void GameManager::init() {
     mapList->shrink_to_fit();
     nodeList->shrink_to_fit();
     idMap = drawMap(planeSize, mapList, idTextureBuilding);
-    enemy = new Enemy(glm::vec3(20, 0, 3), *nodeList, planeSize);
+    enemyManager->init(nodeList, planeSize);
+    enemyManager->addEnemy();
+    //enemy = new Enemy(glm::vec3(20, 0, 3), *nodeList, planeSize);
     //pathfinding = new aStar(*nodeList,planeSize);
 
     /*for (Node n: *nodeList) {
@@ -95,13 +98,14 @@ void GameManager::loop() {
             followCam->moveCam(player, 2);
         }
         handleEvent();
-        projectileManager->update(collisionManager, player, enemy);
+        projectileManager->update(collisionManager, player,enemyManager->getEnemy());
 
         if(!a) {
             //pathfinding->FindPath(enemy->getPosition(), player->getPosition());
         a=true;
         }
-        enemy->movement(player->getPosition());
+        enemyManager->update(player->getPos(), projectileManager);
+        //enemy->movement(player->getPosition());
         draw();
         //mise a jour de l'ecran
         SDL_Delay(5);
@@ -120,9 +124,9 @@ void GameManager::draw() {
 
     glPopMatrix();
     player->drawEntity();
-    if (enemy->isAlive()) {
-        enemy->drawEntity();
-    }
+    /*if (enemy->isAlive()) {
+        //enemy->drawEntity();
+    }*/
     for(Node n : *nodeList){
         glPushMatrix();
         if(!n.isWalkable()){
@@ -137,7 +141,7 @@ void GameManager::draw() {
 
         glPopMatrix();
     }
-    if(enemy->getPathFinding()->foundPath.size() != 0) {
+    /*if(enemy->getPathFinding()->foundPath.size() != 0) {
         for (Node n : enemy->getPathFinding()->foundPath) {
 
             glPushMatrix();
@@ -147,7 +151,7 @@ void GameManager::draw() {
             drawCube();
             glPopMatrix();
         }
-    }
+    }*/
 
     glFlush();
     SDL_GL_SwapWindow(win);
@@ -223,6 +227,14 @@ void GameManager::handleEvent() {
 }
 
 GameManager::~GameManager() {
+    SDL_GL_DeleteContext(context);
+    glDeleteTextures(1, &idTextureBuilding);
+    glDeleteTextures(1, &idTextureGrass);
+    SDL_DestroyWindow(win);
+    TTF_Quit();
+    SDL_Quit();
+}
+void GameManager::deleteGameManager() {
     SDL_GL_DeleteContext(context);
     glDeleteTextures(1, &idTextureBuilding);
     glDeleteTextures(1, &idTextureGrass);

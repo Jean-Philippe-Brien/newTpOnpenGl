@@ -12,23 +12,30 @@ ProjectileManager::ProjectileManager() {
 void ProjectileManager::init() {
 
 }
-void ProjectileManager::update(CollisionManager* cm,Player* player,Enemy* enemy) {
+void ProjectileManager::update(CollisionManager* cm,Player* player, std::vector<Enemy*> enemy) {
 
     checkBulletAlive();
     for(Projectile *p : projectile){
-
-        p->isProjectileAlive();
-        if(cm->detectWallCollision(p->getPosition(), 0.1)){
-            p->setIsAlive(false);
-        }
-        p->draw();
-        if(cm->detectBulletCollision(p->getPosition(),enemy->getPosition())){
-            p->setIsAlive(false);
-            enemy->setHp(enemy->getHp()-20);
-            if(enemy->getHp()==0){
-                enemy->setIsAlive(false);
-                delete enemy;
+        if(p->getIsAlive()) {
+            p->isProjectileAlive();
+            if (cm->detectWallCollision(p->getPosition(), 0.1)) {
+                p->setIsAlive(false);
+            } else if (cm->detectBulletCollision(p->getPosition(), player->getPos())) {
+                p->setIsAlive(false);
+                std::cout << "it" << std::endl;
+                player->setHp(player->getHp() - 10);
             }
+            for (Enemy *e : enemy) {
+                if (cm->detectBulletCollision(p->getPosition(), e->getPosition())) {
+                    p->setIsAlive(false);
+                    e->setHp(e->getHp() - 20);
+                    if (e->getHp() <= 0) {
+                        e->setIsAlive(false);
+                        //delete e;
+                    }
+                }
+            }
+            p->draw();
         }
     }
 }
@@ -45,7 +52,7 @@ void ProjectileManager::checkBulletAlive() {
         }
     }
     for(int i = 0; i < temp.size(); i++){
-        delete projectile.at(temp[i]);
+        //delete projectile.at(temp[i]);
         projectile.erase(projectile.begin() + temp[i]);
 
     }
@@ -57,4 +64,9 @@ void ProjectileManager::createProjectile(Player *player) {
         player->setLastFire(SDL_GetTicks()) ;
         projectile.push_back(new Projectile(player->getRotation() + player->getCanonRotation() , player->getPos()));
     }
+}
+void ProjectileManager::createProjectile(float rotation, glm::vec3 pos) {
+    float p = SDL_GetTicks();
+    pos.y -= 0.2;
+    projectile.push_back(new Projectile(rotation , pos));
 }
