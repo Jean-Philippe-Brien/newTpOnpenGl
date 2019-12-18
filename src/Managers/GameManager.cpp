@@ -3,6 +3,8 @@
 //
 #include "GameManager.h"
 
+
+
 GameManager::GameManager() {
     mapSelected = "basicMap.txt";
 }
@@ -60,6 +62,12 @@ void GameManager::init() {
                 n->setWalkable(c == '0');
                 n->setId(cpt);
                 nodeList->push_back(*n);
+                /*if(n->isWalkable()){
+                    if(cpt%3==0){
+                        SpawnLocation newSpawn = {i,j};
+                        spawns.push_back(&newSpawn);
+                    }
+                }*/
                 cpt++;
                 i++;
             } else { planeSize++;i=0;j++; }//If so increment Plane size
@@ -73,16 +81,12 @@ void GameManager::init() {
     nodeList->shrink_to_fit();
     idMap = drawMap(planeSize, mapList, idTextureBuilding);
     enemy = new Enemy(glm::vec3(20, 0, 3), *nodeList, planeSize);
-    //pathfinding = new aStar(*nodeList,planeSize);
-
-    /*for (Node n: *nodeList) {
-        std::cout << "Node " << k << " = " << n.getX() << " , " << n.getY() << std::endl;
-        k++;
-    }*/
+    
 }
 
 void GameManager::loop() {
     bool a=false;
+    int death=10;
     while (isRunning) {
         timeStartLoop = SDL_GetTicks();
         clean();
@@ -96,12 +100,32 @@ void GameManager::loop() {
         }
         handleEvent();
         projectileManager->update(collisionManager, player, enemy);
-
-        if(!a) {
-            //pathfinding->FindPath(enemy->getPosition(), player->getPosition());
-        a=true;
+        
+        if(!enemy->isAlive()) {
+            player->setScore(player->getScore()+100);
+            enemy=new Enemy(glm::vec3(death,0,death-5),*nodeList,planeSize);
+            if(death>35){
+                death=10;
+            }else{death+=5;}
+        }else{enemy->movement(player->getPosition());}
+        
+        float deltaX = enemy->getPosition().x - player->getPosition().x;
+        float deltaY = enemy->getPosition().y - player->getPosition().y;
+        float deltaZ = enemy->getPosition().z - player->getPosition().z;
+        float distance = (float) sqrt(deltaX * deltaX+deltaY*deltaY+deltaZ*deltaZ);
+        
+        if(distance<1){
+            player->setIsAlive(false);
         }
-        enemy->movement(player->getPosition());
+        
+        if(player->getScore()==500){
+            std::cout <<"Victory" << std::endl;
+            //Display VICTORY ADD CODE TO RETURN TO MAIN MENU
+        }
+        if(!player->isAlive()){
+            std::cout<<" you deeead" << std::endl;
+            //DISPLAY GAME OVER  ADD CODE TO RETURN TO MAIN MENU
+        }
         draw();
         //mise a jour de l'ecran
         SDL_Delay(5);
@@ -119,11 +143,13 @@ void GameManager::draw() {
     glCallList(idMap);
 
     glPopMatrix();
-    player->drawEntity();
+   if(player->isAlive()){
+       player->drawEntity();
+   }
     if (enemy->isAlive()) {
         enemy->drawEntity();
     }
-    for(Node n : *nodeList){
+    /*for(Node n : *nodeList){
         glPushMatrix();
         if(!n.isWalkable()){
             glColor3ub(255,0,0);
@@ -136,8 +162,9 @@ void GameManager::draw() {
             drawCube();}
 
         glPopMatrix();
-    }
-    if(enemy->getPathFinding()->foundPath.size() != 0) {
+    }*/
+    
+    /*if(enemy->getPathFinding()->foundPath.size() != 0) {
         for (Node n : enemy->getPathFinding()->foundPath) {
 
             glPushMatrix();
@@ -147,7 +174,7 @@ void GameManager::draw() {
             drawCube();
             glPopMatrix();
         }
-    }
+    }*///pathfinding gizmos
 
     glFlush();
     SDL_GL_SwapWindow(win);
@@ -160,7 +187,7 @@ void GameManager::handleEvent() {
         isRunning = false;
     }
     if (state[SDL_SCANCODE_ESCAPE]) {
-        isRunning = false;//Bring up Menu >????
+        isRunning = false;
     }
 
     if (state[SDL_SCANCODE_W]) {

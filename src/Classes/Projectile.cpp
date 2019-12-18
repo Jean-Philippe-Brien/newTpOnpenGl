@@ -16,12 +16,12 @@ void Projectile::isProjectileAlive(){
 void Projectile::draw() {
     if(isAlive) {
         movement();
-        glColor3f(0, 0, 255);
+        glColor3f(255, 0, 0);
         glPushMatrix();
         glTranslatef(position.x, position.y + 0.2, position.z);
         glRotatef(this->anglePlayerCanon, 0, 1, 0);
 
-        glTranslatef(0.55,0.25,0);
+        glTranslatef(0.55,0.18,0);
         glScaled(0.03,0.03,0.03);
         drawCube();
         //glCallList(idProjectile);

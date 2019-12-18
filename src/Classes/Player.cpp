@@ -7,8 +7,8 @@
 Player::Player(const glm::vec3 pos) : Entity(pos) {
     idBaseThank = loadOBJ("assets/thisThank.obj");
     idBaseCanon = loadOBJ("assets/thisThankCanon.obj");
-    
-
+    this->setIsAlive(true);
+    score=0;
 }
 
 Player::~Player() {
@@ -39,7 +39,6 @@ void Player::drawEntity() {
         glTranslatef(position.x, position.y, position.z);
         
         glRotatef(rotation, 0, 1, 0);
-        //drawAxe();
         glRotatef(90,0,1,0);
         glScalef(0.2f,0.2f,0.2f);
         glColor3f(1,1,1);
@@ -103,4 +102,12 @@ float Player::getTempY() const {
 
 void Player::setTempY(float tempY) {
     Player::tempY = tempY;
+}
+
+int Player::getScore() const {
+    return score;
+}
+
+void Player::setScore(int score) {
+    Player::score = score;
 }

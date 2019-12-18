@@ -49,13 +49,13 @@ void Enemy::movement(glm::vec3 playerPos) {
 
 
                 if (rotation == 270) {
-                    position.x -= 0.05;
+                    position.x -= 0.08;
                 } else if (rotation == 90) {
-                    position.x += 0.05;
+                    position.x += 0.08;
                 } else if (rotation == 0) {
-                    position.z += 0.05;
+                    position.z += 0.08;
                 } else if (rotation == 180) {
-                    position.z -= 0.05;
+                    position.z -= 0.08;
                 }
             }
             /*else if(pathFinding->foundPath.size() != 0){
@@ -84,10 +84,7 @@ void Enemy::drawEntity() {
     glPushMatrix();
 
     glTranslatef(position.x + 0.5, position.y + 0.05, position.z);
-    drawAxe();
     glRotatef(rotation, 0, 1, 0);
-    //glRotatef(90,0,1,0);
-    //drawAxe();
     glScalef(0.2f,0.2f,0.2f);
     glColor3f(0,0,1);
     glCallList(idBaseThank);

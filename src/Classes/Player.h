@@ -14,6 +14,7 @@
 
 class Player: public Entity {
 private:
+    int score;
     float tempX,tempY;
     float fireRate = 200;
     float lastFire = 0;
@@ -26,6 +27,10 @@ public:
     bool isHit();
     
     //Getter / Setter
+    int getScore() const;
+    
+    void setScore(int score);
+    
     void setPos(const glm::vec3 &pos) override;
     const glm::vec3 &getPos() const override;
     float getRotation() const override;
