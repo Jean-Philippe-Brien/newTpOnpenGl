@@ -1,5 +1,8 @@
 # tpOpenGl
 
+make sure you download Librairie OpenGl GLM
+
+
 Goal
 -player must shoot and kill 5 enemies to win
 
