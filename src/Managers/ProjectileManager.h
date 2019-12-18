@@ -17,8 +17,9 @@ public:
     ProjectileManager();
     void checkBulletAlive();
     void createProjectile(Player *player);
+    void createProjectile(float rotation, glm::vec3 pos);
     void init();
-    void update(CollisionManager* cm,Player* player,Enemy* enemy);
+    void update(CollisionManager* cm,Player* player, std::vector<Enemy*> e);
     ~ProjectileManager();
 };
 

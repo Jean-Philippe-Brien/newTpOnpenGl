@@ -5,10 +5,10 @@
 #ifndef MONPROJETSDL_GAMEMANAGER_H
 #define MONPROJETSDL_GAMEMANAGER_H
 #include "../Utils/Include.h"
-#include "../Managers/ProjectileManager.h"
+//#include "../Managers/ProjectileManager.h"
 #include "../Managers/CollisionManager.h"
 #include "../Classes/Camera.h"
-#include "../Classes/Enemy.h"
+#include "../Managers/EnemyManager.h"
 #include "../Utils/Pathfinding/Node.h"
 #include "../Utils/Pathfinding/aStar.h"
 
@@ -37,10 +37,11 @@ private:
     //aStar *pathfinding;
     std::string mapSelected;
     Player *player;
-    Enemy *enemy;
+    //Enemy *enemy;
     Camera *followCam;
     Camera *fpsCam;
     ProjectileManager *projectileManager;
+    EnemyManager *enemyManager;
 
 public:
     GameManager();

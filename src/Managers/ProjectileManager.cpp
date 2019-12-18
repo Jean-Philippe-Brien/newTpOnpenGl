@@ -12,7 +12,7 @@ ProjectileManager::ProjectileManager() {
 void ProjectileManager::init() {
 
 }
-void ProjectileManager::update(CollisionManager* cm,Player* player,Enemy* enemy) {
+void ProjectileManager::update(CollisionManager* cm,Player* player, std::vector<Enemy*> enemy) {
 
     checkBulletAlive();
     for(Projectile *p : projectile){
@@ -22,12 +22,14 @@ void ProjectileManager::update(CollisionManager* cm,Player* player,Enemy* enemy)
             p->setIsAlive(false);
         }
         p->draw();
-        if(cm->detectBulletCollision(p->getPosition(),enemy->getPosition())){
-            p->setIsAlive(false);
-            enemy->setHp(enemy->getHp()-20);
-            if(enemy->getHp()==0){
-                enemy->setIsAlive(false);
-                delete enemy;
+        for(Enemy* e : enemy) {
+            if(cm->detectBulletCollision(p->getPosition(),e->getPosition())){
+                p->setIsAlive(false);
+                e->setHp(e->getHp()-20);
+                if(e->getHp()<=0){
+                    e->setIsAlive(false);
+                    //delete e;
+                }
             }
         }
     }
@@ -57,4 +59,8 @@ void ProjectileManager::createProjectile(Player *player) {
         player->setLastFire(SDL_GetTicks()) ;
         projectile.push_back(new Projectile(player->getRotation() + player->getCanonRotation() , player->getPos()));
     }
+}
+void ProjectileManager::createProjectile(float rotation, glm::vec3 pos) {
+    float p = SDL_GetTicks();
+    projectile.push_back(new Projectile(rotation , pos));
 }

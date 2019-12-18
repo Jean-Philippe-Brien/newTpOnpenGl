@@ -11,10 +11,11 @@
 class Enemy : public Entity {
 
 private:
+    bool canShoot;
     aStar* pathFinding;
     float timeLastCheck = 0;
     float timeBetweenCheck = 50;
-    float fireRate = 200;
+    float fireRate = 750;
     float lastFire = 0;
     GLuint idBaseThank = 0;
     GLuint idBaseCanon = 0;
@@ -24,7 +25,7 @@ public:
     
     void chase(glm::vec3 pos);
     
-    void shoot();
+    bool shoot();
     
     void movement(glm::vec3 playerPos);
     
@@ -44,6 +45,8 @@ public:
     void setCanonRotation(float canonRotation) override;
     
     void setPos(const glm::vec3 &pos) override;
+
+    ~Enemy();
 };
 
 

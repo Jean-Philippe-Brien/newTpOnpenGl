@@ -18,7 +18,7 @@ void Projectile::draw() {
         movement();
         glColor3f(0, 0, 255);
         glPushMatrix();
-        glTranslatef(position.x, position.y + 0.2, position.z);
+        glTranslatef(position.x, position.y + 0.1, position.z);
         glRotatef(this->anglePlayerCanon, 0, 1, 0);
 
         glTranslatef(0.55,0.25,0);
