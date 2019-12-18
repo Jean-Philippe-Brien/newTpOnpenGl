@@ -109,6 +109,14 @@ void GameManager::loop() {
         draw();
         //mise a jour de l'ecran
         SDL_Delay(5);
+        if (player->getScore() == 500) {
+            std::cout << "Victory" << std::endl;
+            isRunning = false;
+            //Display VICTORY ADD CODE TO RETURN TO MAIN MENU
+        }
+        if(!player->isAlive()){
+            isRunning = false;
+        }
     }
 }
 
@@ -129,16 +137,16 @@ void GameManager::draw() {
     }*/
     for(Node n : *nodeList){
         glPushMatrix();
-        if(!n.isWalkable()){
+        /*if(!n.isWalkable()){
             glColor3ub(255,0,0);
             glTranslatef(n.getX(),.7,n.getY());
             glScalef(0.4,0.4,0.4);
-            drawCube();
+            //drawCube();
         }else{glColor3ub(100,100,100);
             glTranslatef(n.getX(),-0.3,n.getY());
             glScalef(0.4,0.4,0.4);
-            drawCube();}
-
+            //drawCube();}
+*/
         glPopMatrix();
     }
     /*if(enemy->getPathFinding()->foundPath.size() != 0) {
@@ -180,10 +188,12 @@ void GameManager::handleEvent() {
             player->setRotation(player->getRotation() - 1);
     }   // W A S D Events
 
-    if (state[SDL_SCANCODE_LSHIFT]&& event.type == SDL_KEYDOWN) { //Temporary enemy spawner
-       // enemy = new Enemy(glm::vec3(20, 0, 3));
-        //pathfinding->FindPath(enemy->getPosition(), player->getPosition());
-    
+    if (state[SDL_SCANCODE_LSHIFT] && event.type == SDL_KEYDOWN) { //Temporary enemy spawner
+        enemyManager->setAfficherPath(true);
+
+    }
+    if (state[SDL_SCANCODE_LCTRL]) {
+        enemyManager->setAfficherPath(false);
     }
     if(state[SDL_SCANCODE_LEFT])
     {

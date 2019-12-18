@@ -38,6 +38,7 @@ void EnemyManager::update(glm::vec3 playerPos, ProjectileManager* pManager) {
         addEnemy();
     }
     for(Enemy* e : enemy){
+        
         if(e->isAlive()) {
             e->movement(playerPos);
             if (e->shoot()) {
@@ -45,6 +46,19 @@ void EnemyManager::update(glm::vec3 playerPos, ProjectileManager* pManager) {
             }
 
             e->drawEntity();
+            if(afficherPath)
+            if (e->getPathFinding()->foundPath.size() != 0) {
+                for (Node n : e->getPathFinding()->foundPath) {
+
+                    glPushMatrix();
+                    glColor3ub(0, 0, 0);
+                    glTranslatef(n.getX(), 0.4, n.getY());
+                    glScalef(0.1, 0.1, 0.1);
+                    drawCube();
+                    glPopMatrix();
+                }
+            }
+
         }
     }
 }
@@ -55,4 +69,12 @@ void EnemyManager::addEnemy() {
 
 const std::vector<Enemy *> &EnemyManager::getEnemy() const {
     return enemy;
+}
+
+bool EnemyManager::isAfficherPath() const {
+    return afficherPath;
+}
+
+void EnemyManager::setAfficherPath(bool afficherPath) {
+    EnemyManager::afficherPath = afficherPath;
 }
