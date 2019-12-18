@@ -18,6 +18,7 @@ private:
     int timeBetweenNextSpawn;
     int planeSize;
     std::vector<Node> nodeMap;
+    std::vector<glm::vec3> startPos;
 public:
     void init(std::vector<Node> *nodeMap, int planeSize);
     void update(glm::vec3 playerPos, ProjectileManager* pManager);

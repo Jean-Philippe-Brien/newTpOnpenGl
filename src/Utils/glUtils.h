@@ -20,7 +20,7 @@ void drawWall(int length, int dir);
 void drawCircle(float k, float r, float h);
 
 void drawPlane(float size, GLuint idTexture);
-
+void drawLifeBar(glm::vec3 pos, float rotation, float pourcentVie, bool player);
 void drawRect(int length, int dir);
 
 void drawAxe();

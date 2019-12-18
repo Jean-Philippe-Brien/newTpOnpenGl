@@ -234,3 +234,11 @@ GameManager::~GameManager() {
     TTF_Quit();
     SDL_Quit();
 }
+void GameManager::deleteGameManager() {
+    SDL_GL_DeleteContext(context);
+    glDeleteTextures(1, &idTextureBuilding);
+    glDeleteTextures(1, &idTextureGrass);
+    SDL_DestroyWindow(win);
+    TTF_Quit();
+    SDL_Quit();
+}

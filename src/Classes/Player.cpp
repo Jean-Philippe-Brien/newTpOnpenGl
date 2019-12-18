@@ -47,6 +47,7 @@ void Player::drawEntity() {
         glRotatef( canonRotation,0,1,0);
         glCallList(idBaseCanon);
     glPopMatrix();
+    drawLifeBar(position, rotation, hp, true);
 
 }
 
@@ -103,4 +104,8 @@ float Player::getTempY() const {
 
 void Player::setTempY(float tempY) {
     Player::tempY = tempY;
+}
+
+void Player::afficherVieGui() {
+
 }

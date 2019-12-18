@@ -105,6 +105,7 @@ void Enemy::drawEntity() {
     glRotatef( canonRotation,0,1,0);
     glCallList(idBaseCanon);
     glPopMatrix();
+    drawLifeBar(position, rotation, hp, false);
 }
 
 void Enemy::chase(glm::vec3 pos) {

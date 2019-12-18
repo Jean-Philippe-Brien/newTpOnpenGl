@@ -51,6 +51,7 @@ public:
     void handleEvent();
     void draw();
     void clean();
+    void deleteGameManager();
     ~GameManager();
 };
 
